@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Шубин](https://up.htmlacademy.ru/javascript/16/user/346745).
-* Наставник: `Неизвестно`.
+* Наставник: `Vladislav Balabanovich`.
 
 ---
 
