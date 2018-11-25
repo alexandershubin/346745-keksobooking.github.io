@@ -35,8 +35,6 @@ var MIN_X = 0;
 var MAX_X = 1200;
 var FLAT_WIDTH = 70;
 var FLAT_HEIGHT = 70;
-var CARD_PHOTO_WIDTH = 45;
-var CARD_PHOTO_HEIGTH = 40;
 
 var FLAT_TITLES = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"]
 
@@ -109,7 +107,7 @@ for(var i = 0; i < ADS_COUNT; i++) {
 
 
 
-function createPin(pin) {
+var createPin = function (pin) {
   var element = templatePin.cloneNode(true);
   style.left = pin.location.x - FLAT_WIDTH / 2 + 'px';
   style.top = pin.location.y - FLAT_HEIGHT + 'px';
@@ -121,12 +119,16 @@ function createPin(pin) {
 }
 
 
+var renderPins = function(pins) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < pins.length; i++) {
+    var newPin = createPin(pins[i]);
+    fragment.appendChild(newPin);
+  }
+  pinsContainer.appendChild(fragment);
+}
 
-
-
-
-
-
+console.log(pins);
 
 
 
