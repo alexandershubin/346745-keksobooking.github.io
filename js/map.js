@@ -33,6 +33,10 @@ var MIN_Y = 130;
 var MAX_Y = 630;
 var MIN_X = 0;
 var MAX_X = 1200;
+var FLAT_WIDTH = 70;
+var FLAT_HEIGHT = 70;
+var CARD_PHOTO_WIDTH = 45;
+var CARD_PHOTO_HEIGTH = 40;
 
 var FLAT_TITLES = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"]
 
@@ -41,9 +45,9 @@ map.classList.remove('map--faded');
 
 var mapPins = document.querySelector('.map__pins');
 var mapFilter = document.querySelector('.map__filter');
-var mapCheckbox = document.querySelector('.map__checkbox');
-var notice = document.querySelector('.notice');
-var map = document.querySelector('.map');
+var templatePin = document.querySelector('#pin').content.querySelector('map__pin');
+var templateCard = document.querySelector('#card').content.querySelector('.map__card');
+
 
 /*var getRandomItem = function(arr) {
   for(var i = 0; i <= FLAT_TITLES.length - 1; i++) {
@@ -77,7 +81,7 @@ var generateAdvert = function(i) {
 
   offer: {
       title: getRandomItem(FLAT_TITLES),
-      /*address: locationX + ', ' + locationY,*/
+      address: location.x + ', ' + location.y,
       price: getRandomNumber(FLAT_PRICE.min, FLAT_PRICE.max),
       type: getRandomItem(FLAT_TYPE),
       rooms: getRandomNumber(FLAT_ROOMS.min, FLAT_ROOMS.max),
@@ -85,7 +89,7 @@ var generateAdvert = function(i) {
       checkin: getRandomItem(FLAT_CHEK),
       checkout: getRandomItem(FLAT_CHEK),
       features: getRandomArrayLength(FLAT_FEATURES),
-      description: 'FLAT_DISCRIPTION',
+      description: '',
       photos: getRandomArrayLength(FLAT_PHOTOS)
     },
 
@@ -101,7 +105,20 @@ var advertArray = [];
 for(var i = 0; i < ADS_COUNT; i++) {
   advertArray.push(generateAdvert(i+1));
   console.log(advertArray);
-  }
+  };
+
+
+
+function createPin(pin) {
+  var element = templatePin.cloneNode(true);
+  style.left = pin.location.x - FLAT_WIDTH / 2 + 'px';
+  style.top = pin.location.y - FLAT_HEIGHT + 'px';
+  var pinImage = pin.querySelector('img');
+  pinImage.src = example.author.avatar;
+  pinImage.alt = example.offer.title;
+
+  return pin;
+}
 
 
 
