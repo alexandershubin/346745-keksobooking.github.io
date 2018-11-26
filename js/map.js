@@ -7,6 +7,8 @@ var FLAT_PRICE = {
   max: 1000000
 };
 
+var FLAT_TYPE = ['palace', 'flat', 'house', 'bungalo'];
+
 var FLAT_ROOMS = {
   min: 1,
   max: 5
@@ -79,7 +81,7 @@ var generateAdvert = function(i) {
       title: getRandomItem(FLAT_TITLES),
       address: location.x + ', ' + location.y,
       price: getRandomNumber(FLAT_PRICE.min, FLAT_PRICE.max),
-      type: getRandomItem(offerTypes),
+      type: getRandomItem(FLAT_TYPE),
       rooms: getRandomNumber(FLAT_ROOMS.min, FLAT_ROOMS.max),
       guests: getRandomNumber(FLAT_GUESTS.min, FLAT_GUESTS.max),
       checkin: getRandomItem(FLAT_CHEK),
@@ -127,7 +129,20 @@ console.log(pins);
 }
 renderPins(advertArray);
 
+var map = document.querySelector('.map');
+var templateCard = document.querySelector('#card')
+    .content
+    .querySelector('.map__card');
+
+    for (var i = 0; i <= 1; i++) {
+  var card = templateCard.cloneNode(true);
+
+  map.appendChild(card);
+}
+
+
 var createElement = function(advert) {
+
   var card = templateCard.cloneNode(true);
 
   var offerTitle = card.querySelector('.popup__title');
@@ -144,7 +159,8 @@ var createElement = function(advert) {
   offerCheck.textContent = 'Заезд после' + advert.offer.checkin + 'Выезд до' + advert.offer.checkout;
   var offerCheck = card.querySelector('.popup__features ');
 
-  return card;
+ return card;
+ createElement();
 }
 
 map.insertBefore(card, map.querySelector('.map__filters-container'));
