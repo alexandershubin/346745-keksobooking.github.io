@@ -137,25 +137,6 @@ var templateCard = document.querySelector('#card')
   map.appendChild(card);
 }
 
-var photos = [
-  {
-    src: 'http://o0.github.io/assets/images/tokyo/hotel1.jpg'
-  },
-  {
-    src: 'http://o0.github.io/assets/images/tokyo/hotel2.jpg'
-  },
-  {
-    src: 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
-  },
-];
-
-for (var i = 0; i < photos.length; i++) {
-var card = templateCard.cloneNode(true);
-
-card.querySelector('.popup__photos').textContent = photos[i].src;
-map.appendChild(card);
-}
-
 var createElement = function(advert) {
 
   var card = templateCard.cloneNode(true);
@@ -178,6 +159,24 @@ var createElement = function(advert) {
   var offerPhotos = card.querySelector('.popup__photos');
   offerPhotos.textContent = advert.offer.photos;
   var offerAvatar = card.querySelector('.popup__avatar');
+  var photos = [
+  {
+    src: 'http://o0.github.io/assets/images/tokyo/hotel1.jpg'
+  },
+  {
+    src: 'http://o0.github.io/assets/images/tokyo/hotel2.jpg'
+  },
+  {
+    src: 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+  },
+];
+
+for (var i = 0; i < photos.length; i++) {
+var card = templateCard.cloneNode(true);
+
+card.querySelector('.popup__photos').textContent = photos[i].src;
+map.appendChild(card);
+}
   offerAvatar.src = advert.author.avatar;
 
  return card;
