@@ -45,14 +45,10 @@ var offerTypes = {
   bungalo: 'Бунгало'
 }
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
-
 var mapPins = document.querySelector('.map__pins');
 var pinsContainer = document.querySelector('.map__pins');
 var mapFilter = document.querySelector('.map__filter');
 var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
-var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
 var getRandomItem = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -134,12 +130,31 @@ var templateCard = document.querySelector('#card')
     .content
     .querySelector('.map__card');
 
-    for (var i = 0; i <= 1; i++) {
+  for (var i = 0; i < FLAT_FEATURES.length; i++) {
   var card = templateCard.cloneNode(true);
 
+  card.querySelector('.popup__features').textContent = FLAT_FEATURES[i];
   map.appendChild(card);
 }
 
+var photos = [
+  {
+    src: 'http://o0.github.io/assets/images/tokyo/hotel1.jpg'
+  },
+  {
+    src: 'http://o0.github.io/assets/images/tokyo/hotel2.jpg'
+  },
+  {
+    src: 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+  },
+];
+
+for (var i = 0; i < photos.length; i++) {
+var card = templateCard.cloneNode(true);
+
+card.querySelector('.popup__photos').textContent = photos[i].src;
+map.appendChild(card);
+}
 
 var createElement = function(advert) {
 
@@ -157,7 +172,13 @@ var createElement = function(advert) {
   offerRooms.textContent = advert.offer.rooms + 'комнаты для' + advert.offer.guests + 'гостей';
   var offerCheck = card.querySelector('.popup__text--time');
   offerCheck.textContent = 'Заезд после' + advert.offer.checkin + 'Выезд до' + advert.offer.checkout;
-  var offerCheck = card.querySelector('.popup__features ');
+  var offerFeatures = card.querySelector('.popup__features');
+  var offerDescription = card.querySelector('.popup__description');
+  offerDescription.textContent = advert.offer.description;
+  var offerPhotos = card.querySelector('.popup__photos');
+  offerPhotos.textContent = advert.offer.photos;
+  var offerAvatar = card.querySelector('.popup__avatar');
+  offerAvatar.src = advert.author.avatar;
 
  return card;
  createElement();
@@ -165,5 +186,5 @@ var createElement = function(advert) {
 
 map.insertBefore(card, map.querySelector('.map__filters-container'));
 
-
+map.classList.remove('map--faded');
 
