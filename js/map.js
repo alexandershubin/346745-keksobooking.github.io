@@ -119,9 +119,9 @@ var renderPins = function (pins) {
     var newPin = createPin(pins[i]);
     fragment.appendChild(newPin);
   }
-pinsContainer.appendChild(fragment);
+  pinsContainer.appendChild(fragment);
 
-console.log(pins);
+  console.log(pins);
 }
 renderPins(advertArray);
 
@@ -160,23 +160,19 @@ var createElement = function(advert) {
   }
   offerDescription.textContent = advert.offer.description;
 
-   offerPhotos.innerHTML = '';
-  for (var i = 0; i < advert.offer.photos.length; i++) {
-    var img = document.createElement('img');
-    img.className = 'popup__photos popup__feature--' + advert.offer.photos[i];
-    card.querySelector('.popup__photos').appendChild(img);
-  }
-
   offerPhotos.innerHTML = '';
-  for (var i = 0; i < FLAT_PHOTOS.length; i++) {
+  for (var i = 0; i < advert.offer.photos.length; i++) {
     var img = document.createElement('img');
     img.className = 'popup__photo';
     img.src = advert.offer.photos[i];
     img.width = 45;
     img.height = 40;
+    img.alt = 'Фотография жилья';
+
     card.querySelector('.popup__photos').appendChild(img);
-    card.querySelector('.popup__photos').querySelector('img').src = advert.offer.photos[i];
   }
+
+
 
   return card;
 }
@@ -186,15 +182,15 @@ map.insertBefore(createElement(advertArray[0]), map.querySelector('.map__filters
 map.classList.add('map--faded');
 
 //second exercise
-debugger;
+var mapPinMain = document.querySelector('.map__pin--main');
+
 var notice = document.querySelector('.notice');
 
 var adForm = document.querySelector('.ad-form');
 
 adForm.classList.add('ad-form--disabled');
-var mapFilters = document.querySelector('.map__filters');
 
-var mapPinMain = document.querySelector('.map__pin--main');
+var mapFilters = document.querySelector('.map__filters');
 
 mapPinMain.addEventListener('mouseup', function() {
   map.classList.remove('map--faded');
