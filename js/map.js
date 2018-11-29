@@ -1,5 +1,7 @@
 'use strict';
 
+//first exercise
+
 var FLAT_TITLES = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"];
 
 var FLAT_PRICE = {
@@ -22,8 +24,6 @@ var FLAT_GUESTS = {
 var FLAT_CHEK = ['12:00', '13:00', '14:00'];
 
 var FLAT_FEATURES = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
-
-
 
 var FLAT_DISCRIPTION = '';
 
@@ -128,7 +128,7 @@ renderPins(advertArray);
 var map = document.querySelector('.map');
 var templateCard = document.querySelector('#card')
     .content
-    .querySelector('.map__card');
+   .querySelector('.map__card');
 
 var createElement = function(advert) {
 
@@ -183,5 +183,22 @@ var createElement = function(advert) {
 
 map.insertBefore(createElement(advertArray[0]), map.querySelector('.map__filters-container'));
 
-map.classList.remove('map--faded');
+map.classList.add('map--faded');
+
+//second exercise
+debugger;
+var notice = document.querySelector('.notice');
+
+var adForm = document.querySelector('.ad-form');
+
+adForm.classList.add('ad-form--disabled');
+var mapFilters = document.querySelector('.map__filters');
+
+var mapPinMain = document.querySelector('.map__pin--main');
+
+mapPinMain.addEventListener('mouseup', function() {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  mapFilters.classList.remove('disabled');
+});
 
