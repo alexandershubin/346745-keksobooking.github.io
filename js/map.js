@@ -160,7 +160,13 @@ var createElement = function(advert) {
   }
   offerDescription.textContent = advert.offer.description;
 
-  offerPhotos.innerHTML = '';
+ offerPhotos.innerHTML = '';
+  for (var i = 0; i < advert.offer.photos.length; i++) {
+    var img = document.createElement('img');
+    img.className = 'popup__photos' + advert.offer.photos[i];
+    card.querySelector('.popup__photos').appendChild(img);
+  }
+   offerPhotos.innerHTML = '';
   for (var i = 0; i < advert.offer.photos.length; i++) {
     var img = document.createElement('img');
     img.className = 'popup__photo';
@@ -168,11 +174,9 @@ var createElement = function(advert) {
     img.width = 45;
     img.height = 40;
     img.alt = 'Фотография жилья';
-
-    card.querySelector('.popup__photos').appendChild(img);
+     card.querySelector('.popup__photos').appendChild(img);
+    card.querySelector('.popup__photos').querySelector('img').src = advert.offer.photos[i];
   }
-
-
 
   return card;
 }
@@ -181,20 +185,18 @@ map.insertBefore(createElement(advertArray[0]), map.querySelector('.map__filters
 
 map.classList.add('map--faded');
 
-//second exercise
-var mapPinMain = document.querySelector('.map__pin--main');
-
-var notice = document.querySelector('.notice');
-
-var adForm = document.querySelector('.ad-form');
-
-adForm.classList.add('ad-form--disabled');
-
-var mapFilters = document.querySelector('.map__filters');
+/*var mapPinMain = document.querySelector('.map__pin--main');
 
 mapPinMain.addEventListener('mouseup', function() {
   map.classList.remove('map--faded');
-  adForm.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('disabled');
 });
+*/
+
+var mapPin = document.querySelector('.map__pin--main');
+var mapPinMouseupHandler = function() {
+  map.classList.remove('map--faded');
+
+};
+
+mapPin.addEventListener('mouseup', mapPinMouseupHandler);
 
