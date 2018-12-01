@@ -195,6 +195,7 @@ mapPinMain.addEventListener('mouseup', function() {
 var mapPin = document.querySelector('.map__pin--main');
 var mapPinMouseupHandler = function() {
   map.classList.remove('map--faded');
+  renderPins(advertArray);
 
 };
 
