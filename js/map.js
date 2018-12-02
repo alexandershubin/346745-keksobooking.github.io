@@ -2,6 +2,8 @@
 
 //first exercise
 
+//Обьявляем константы
+
 var FLAT_TITLES = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"];
 
 var FLAT_PRICE = {
@@ -45,11 +47,12 @@ var offerTypes = {
   bungalo: 'Бунгало'
 }
 
-var mapPins = document.querySelector('.map__pins');
+//возвращаем первый эелмент внутри документа
 var pinsContainer = document.querySelector('.map__pins');
 var mapFilter = document.querySelector('.map__filter');
 var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
 
+//создаем массив из 8 обьектов
 var getRandomItem = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
@@ -100,6 +103,7 @@ for(var i = 0; i < ADS_COUNT; i++) {
 };
 console.log(advertArray);
 
+//создаем метки
 var createPin = function (pin) {
   var element = templatePin.cloneNode(true);
 
@@ -113,6 +117,7 @@ var createPin = function (pin) {
 }
 console.log(pin);
 
+//отрисовываем сгенерированые DOM-элементы в блок .map__pins
 var renderPins = function (pins) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < pins.length; i++) {
@@ -130,27 +135,32 @@ var templateCard = document.querySelector('#card')
   .content
   .querySelector('.map__card');
 
+//Создаем DOM эелемент обьявления
 var createElement = function(advert) {
 
   var card = templateCard.cloneNode(true);
 
   var offerTitle = card.querySelector('.popup__title');
-  var offerAdress = card.querySelector('.popup__text--address');
+  var offerAdress = card.querySelectorAll('.popup__text--address');
   var offerPrice = card.querySelector('.popup__text--price');
   var offerType = card.querySelector('.popup__type');
   var offerRooms = card.querySelector('.popup__text--capacity');
   var offerCheck = card.querySelector('.popup__text--time');
   var offerFeatures = card.querySelector('.popup__features');
-  var offerDescription = card.querySelector('.popup__description');
+  var offerDescription = card.querySelectorAll('.popup__description');
   var offerPhotos = card.querySelector('.popup__photos');
   var offerAvatar = card.querySelector('.popup__avatar');
+
 
   offerTitle.textContent = advert.offer.title;
   offerAdress.textContent = advert.offer.address;
   offerPrice.textContent = advert.offer.price + ' ₽/ночь';
-  offerType.extContent = offerTypes[advert.offer.type];
+  offerType.textContent = offerTypes[advert.offer.type];
   offerRooms.textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
   offerCheck.textContent = 'Заезд после ' + advert.offer.checkin + ' Выезд до ' + advert.offer.checkout;
+  offerDescription.textContent = advert.offer.description;
+  offerAvatar.src = advert.author.avatar;
+
 
   offerFeatures.innerHTML = '';
   for (var i = 0; i < advert.offer.features.length; i++) {
@@ -158,7 +168,7 @@ var createElement = function(advert) {
     li.className = 'popup__feature popup__feature--' + advert.offer.features[i];
     card.querySelector('.popup__features').appendChild(li);
   }
-  offerDescription.textContent = advert.offer.description;
+
 
    offerPhotos.innerHTML = '';
   for (var i = 0; i < advert.offer.photos.length; i++) {
@@ -178,6 +188,18 @@ map.insertBefore(createElement(advertArray[0]), map.querySelector('.map__filters
 
 map.classList.add('map--faded');
 
+var popup = document.querySelector('.popup');
+var popupOpen = document.querySelector('.popup__avatar');
+var popupClose = document.querySelector('.popup__close');
+
+popupOpen.addEventListener('click', function() {
+  popup.classList.remove('hidden');
+});
+
+popupClose.addEventListener('click', function() {
+  popup.classList.add('hidden');
+});
+
 var adForm = document.querySelector('.ad-form');
 var mapPinMain = document.querySelector('.map__pin--main');
 var Address = document.querySelector('#address');
@@ -195,10 +217,18 @@ var mapPinMouseupHandler = function() {
 
 mapPin.addEventListener('mouseup', mapPinMouseupHandler);
 
-var popup = document.querySelector('.popup');
-var popupClose = document.querySelector('.popup__close');
+/*popup.classList.add('hidden');
 
 popupClose.addEventListener('click', function() {
   popup.classList.add('hidden');
 });
 
+
+pinsContainer.addEventListener('click', function() {
+  popup.classList.remove('hidden');
+
+
+
+});
+
+*/
