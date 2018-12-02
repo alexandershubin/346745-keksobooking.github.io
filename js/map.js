@@ -174,14 +174,9 @@ var createElement = function(advert) {
   return card;
 }
 
-//map.insertBefore(createElement(advertArray[0]), map.querySelector('.map__filters-container'));
+map.insertBefore(createElement(advertArray[0]), map.querySelector('.map__filters-container'));
 
 map.classList.add('map--faded');
-
-var showCard = function (itemOfAds) {
-  map.insertBefore(createElement(itemOfAds), mapPins.querySelector('.map__filters-container'));
-};
-
 
 var adForm = document.querySelector('.ad-form');
 var mapPinMain = document.querySelector('.map__pin--main');
@@ -200,4 +195,10 @@ var mapPinMouseupHandler = function() {
 
 mapPin.addEventListener('mouseup', mapPinMouseupHandler);
 
+var popup = document.querySelector('.popup');
+var popupClose = document.querySelector('.popup__close');
+
+popupClose.addEventListener('click', function() {
+  popup.classList.add('hidden');
+});
 
