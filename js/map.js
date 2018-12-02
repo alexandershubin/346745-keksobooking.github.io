@@ -123,12 +123,12 @@ var renderPins = function (pins) {
 
   console.log(pins);
 }
-renderPins(advertArray);
+
 
 var map = document.querySelector('.map');
 var templateCard = document.querySelector('#card')
-    .content
-   .querySelector('.map__card');
+  .content
+  .querySelector('.map__card');
 
 var createElement = function(advert) {
 
@@ -160,12 +160,6 @@ var createElement = function(advert) {
   }
   offerDescription.textContent = advert.offer.description;
 
- offerPhotos.innerHTML = '';
-  for (var i = 0; i < advert.offer.photos.length; i++) {
-    var img = document.createElement('img');
-    img.className = 'popup__photos' + advert.offer.photos[i];
-    card.querySelector('.popup__photos').appendChild(img);
-  }
    offerPhotos.innerHTML = '';
   for (var i = 0; i < advert.offer.photos.length; i++) {
     var img = document.createElement('img');
@@ -174,30 +168,36 @@ var createElement = function(advert) {
     img.width = 45;
     img.height = 40;
     img.alt = 'Фотография жилья';
-     card.querySelector('.popup__photos').appendChild(img);
-    card.querySelector('.popup__photos').querySelector('img').src = advert.offer.photos[i];
+    card.querySelector('.popup__photos').appendChild(img);
   }
 
   return card;
 }
 
-map.insertBefore(createElement(advertArray[0]), map.querySelector('.map__filters-container'));
+//map.insertBefore(createElement(advertArray[0]), map.querySelector('.map__filters-container'));
 
 map.classList.add('map--faded');
 
-/*var mapPinMain = document.querySelector('.map__pin--main');
+var showCard = function (itemOfAds) {
+  map.insertBefore(createElement(itemOfAds), mapPins.querySelector('.map__filters-container'));
+};
 
-mapPinMain.addEventListener('mouseup', function() {
-  map.classList.remove('map--faded');
-});
-*/
 
+var adForm = document.querySelector('.ad-form');
+var mapPinMain = document.querySelector('.map__pin--main');
+var Address = document.querySelector('#address');
 var mapPin = document.querySelector('.map__pin--main');
+var fieldset = document.querySelectorAll('[disabled]');
 var mapPinMouseupHandler = function() {
   map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
   renderPins(advertArray);
 
+  for (var i = 0; i < fieldset.length; i++) {
+    fieldset[i].removeAttribute('disabled');
+  }
 };
 
 mapPin.addEventListener('mouseup', mapPinMouseupHandler);
+
 
