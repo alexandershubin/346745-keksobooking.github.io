@@ -237,3 +237,17 @@ var init = function () {
 };
 
 init();
+
+/* var titleInput = document.querySelector('ad-form__label');
+titleInput.addEventListener('invalid', function () {
+  if (titleInput.validity.tooShort) {
+    titleInput.setCustomValidity('Имя должно состоять минимум из 30-ти символов');
+  } else if (titleInput.validity.tooLong) {
+    titleInput.setCustomValidity('Имя не должно превышать 100 символов');
+  } else if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Обязательное поле');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
+*/
