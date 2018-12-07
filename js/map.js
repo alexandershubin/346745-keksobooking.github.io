@@ -55,6 +55,8 @@ var mapPin = document.querySelector('.map__pin--main');
 var fieldset = document.querySelectorAll('[disabled]');
 var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
 var templateCard = document.querySelector('#card').content.querySelector('.map__card');
+var roomNumber = document.querySelector('#room_number');
+var capacity = document.querySelector('#capacity');
 
 // Массив со всеми объявлениями
 var advertArray = [];
