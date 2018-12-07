@@ -238,16 +238,26 @@ var init = function () {
 
 init();
 
-/* var titleInput = document.querySelector('ad-form__label');
-titleInput.addEventListener('invalid', function () {
-  if (titleInput.validity.tooShort) {
-    titleInput.setCustomValidity('Имя должно состоять минимум из 30-ти символов');
-  } else if (titleInput.validity.tooLong) {
-    titleInput.setCustomValidity('Имя не должно превышать 100 символов');
-  } else if (titleInput.validity.valueMissing) {
-    titleInput.setCustomValidity('Обязательное поле');
-  } else {
-    titleInput.setCustomValidity('');
-  }
-});
-*/
+// установка соответствия количества гостей количеству комнат
+var roomNumberСhangeHandler = function (connect) {
+  connect.setCustomValidity('Выберите');
+  connect.addEventListener('change', function () {
+    roomNumber.setCustomValidity('');
+    capacity.setCustomValidity('');
+
+    var capacityInt = parseInt(capacity.value, 10);
+    var roomInt = parseInt(roomNumber.value, 10);
+
+    if (capacityInt > roomInt && capacityInt > 0) {
+      connect.setCustomValidity('Выберите соответсвующие значение (количество гостей не может превышать количество комнат)');
+    } else if (roomInt === 100 && capacityInt > 0) {
+      connect.setCustomValidity('100 комнат не для гостей');
+    } else if (roomInt !== 100 && capacityInt === 0) {
+      connect.setCustomValidity('Выберите количество гостей');
+    }
+  });
+};
+roomNumberСhangeHandler(roomNumber);
+roomNumberСhangeHandler(capacity);
+
+
