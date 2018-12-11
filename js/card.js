@@ -33,4 +33,8 @@
     };
   };
 
+  window.cards = {
+    generateAdvert: generateAdvert,
+  };
+
 })();

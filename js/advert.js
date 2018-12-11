@@ -1,11 +1,10 @@
 'use strict';
 (function () {
 
-  var fieldset = document.querySelectorAll('[disabled]');
   // Создаем DOM элемент обьявления
 
   var createCardElement = function (advert) {
-    deleteCurrentCard();
+    window.pins.deleteCurrentCard();
 
     var card = window.data.cloneNode(true);
 
@@ -49,9 +48,13 @@
       offerPhotos.appendChild(img);
     }
 
-    closeButton.addEventListener('click', deleteCurrentCard);
+    closeButton.addEventListener('click', window.pins.deleteCurrentCard);
 
     return card;
+  };
+
+  window.advert = {
+    createCardElement: createCardElement,
   };
 
 })();

@@ -46,7 +46,7 @@
     for (var j = 0; j < allPins.length; j++) {
       allPins[j].addEventListener('click', function (evt) {
         var dataId = evt.currentTarget.getAttribute('data-id');
-        window.data.insertBefore(createCardElement(window.data[dataId]), window.data.querySelector('.map__filters-container'));
+        window.data.insertBefore(window.advert.createCardElement(window.data[dataId]), window.data.querySelector('.map__filters-container'));
       });
     }
   };
@@ -61,7 +61,7 @@
   };
 
   // Заполнить адрес
-  var fillAdress = function () {
+  fillAdress = function () {
     var left = window.data.offsetLeft - window.data.FLAT_WIDTH / 2;
     var top = window.data.offsetTop - window.data.FLAT_WIDTH / 2;
 
@@ -85,10 +85,14 @@
     window.data.addEventListener('mouseup', mapPinMouseupHandler);
 
     for (var i = 0; i < window.data.ADS_COUNT; i++) {
-      window.data.push(generateAdvert(i + 1));
+      window.data.push(window.cards.generateAdvert(i + 1));
     }
   };
 
   init();
+
+  window.pins = {
+    deleteCurrentCard: deleteCurrentCard,
+  };
 
 })();
