@@ -1,6 +1,7 @@
 'use strict';
 
 // Обьявляем константы
+// setup.js
 var FLAT_TITLES = [
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -65,6 +66,7 @@ var formType = document.querySelector('#type');
 var formPrice = document.querySelector('#price');
 
 // Массив со всеми объявлениями
+// advert.js
 var advertArray = [];
 
 // Получить случайный элемент массива
@@ -116,6 +118,7 @@ var generateAdvert = function (i) {
 };
 
 // Создаём метки
+// render.js
 var createPin = function (pin, index) {
   var element = templatePin.cloneNode(true);
   var pinImage = element.querySelector('img');
@@ -143,6 +146,7 @@ var renderPins = function (pins) {
 };
 
 // Создаем DOM элемент обьявления
+// DOM - advert.js
 var createCardElement = function (advert) {
   deleteCurrentCard();
 
@@ -247,6 +251,7 @@ var init = function () {
 init();
 
 // установка соответствия количества гостей количеству комнат
+// form.js
 var roomNumberСhangeHandler = function (connect) {
   connect.setCustomValidity('Выберите');
   connect.addEventListener('change', function () {
