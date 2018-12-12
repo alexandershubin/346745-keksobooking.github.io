@@ -4,7 +4,7 @@
   // Создаём метки
 
   var createPin = function (pin, index) {
-    var element = window.data.cloneNode(true);
+    var element = window.data.templatePin.cloneNode(true);
     var pinImage = element.querySelector('img');
 
     element.style.left = pin.location.x - window.data.FLAT_WIDTH / 2 + 'px';
@@ -24,19 +24,19 @@
       var newPin = createPin(pins[i], i);
       fragment.appendChild(newPin);
     }
-    window.data.appendChild(fragment);
+    window.data.pinsContainer.appendChild(fragment);
 
     addClickHandlersToPins();
   };
 
   // Обработчик клика по пину
   var mapPinMouseupHandler = function () {
-    window.data.classList.remove('map--faded');
-    window.data.classList.remove('ad-form--disabled');
-    renderPins(window.data);
+    window.data.map.classList.remove('map--faded');
+    window.data.adForm.classList.remove('ad-form--disabled');
+    renderPins(window.data.advertArray);
 
-    for (var i = 0; i < window.data.length; i++) {
-      window.data[i].removeAttribute('disabled');
+    for (var i = 0; i < window.data.fieldset.length; i++) {
+      window.data.fieldset[i].removeAttribute('disabled');
     }
   };
 
@@ -46,28 +46,20 @@
     for (var j = 0; j < allPins.length; j++) {
       allPins[j].addEventListener('click', function (evt) {
         var dataId = evt.currentTarget.getAttribute('data-id');
-        window.data.insertBefore(window.advert.createCardElement(window.data[dataId]), window.data.querySelector('.map__filters-container'));
+        window.data.map.insertBefore(window.advert.createCardElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
       });
     }
   };
 
   // Заполнить адрес
   var fillAdress = function () {
-    var left = window.data.offsetLeft - window.data.FLAT_WIDTH / 2;
-    var top = window.data.offsetTop - window.data.FLAT_WIDTH / 2;
+    var left = window.data.mapPin.offsetLeft - window.data.FLAT_WIDTH / 2;
+    var top = window.data.mapPin.offsetTop - window.data.FLAT_WIDTH / 2;
 
     window.data.address.value = left + ', ' + top;
     window.data.address.readOnly = true;
   };
 
-  // Заполнить адрес
-  fillAdress = function () {
-    var left = window.data.offsetLeft - window.data.FLAT_WIDTH / 2;
-    var top = window.data.offsetTop - window.data.FLAT_WIDTH / 2;
-
-    window.data.value = left + ', ' + top;
-    window.data.readOnly = true;
-  };
 
   // Удаляем прошлую карточку
   var deleteCurrentCard = function () {
@@ -78,21 +70,10 @@
     }
   };
 
-  // Инициализируем приложение
-  var init = function () {
-    fillAdress();
-
-    window.data.addEventListener('mouseup', mapPinMouseupHandler);
-
-    for (var i = 0; i < window.data.ADS_COUNT; i++) {
-      window.data.push(window.cards.generateAdvert(i + 1));
-    }
-  };
-
-  init();
-
   window.pins = {
     deleteCurrentCard: deleteCurrentCard,
+    fillAdress: fillAdress,
+    mapPinMouseupHandler: mapPinMouseupHandler
   };
 
 })();

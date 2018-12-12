@@ -6,7 +6,7 @@
   var createCardElement = function (advert) {
     window.pins.deleteCurrentCard();
 
-    var card = window.data.cloneNode(true);
+    var card = window.data.templatePin.cloneNode(true);
 
     var offerTitle = card.querySelector('.popup__title');
     var offerAdress = card.querySelector('.popup__text--address');
