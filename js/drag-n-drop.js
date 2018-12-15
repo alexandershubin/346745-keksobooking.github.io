@@ -2,10 +2,12 @@
 
 // цикл Drag-and-drop для маркера
 
-var mapPin = document.querySelector('.map__pin--main');
-var address = document.querySelector('#address');
-
 (function () {
+  var mapPin = document.querySelector('.map__pin--main');
+  var address = document.querySelector('#address');
+
+  var mapDisabled = true;
+
   var getX = function () {
     var x = mapPin.offsetLeft;
     if (x < window.data.MIN_X) {
@@ -66,6 +68,12 @@ var address = document.querySelector('#address');
     };
 
     var onMouseUp = function (upEvt) {
+
+      if (mapDisabled) {
+        window.pins.startActivMainPin();
+        mapDisabled = false;
+      }
+
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);

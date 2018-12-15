@@ -34,7 +34,7 @@
   };
 
   window.advert = {
-    generateAdvert: generateAdvert,
+    generate: generateAdvert,
   };
 
 })();

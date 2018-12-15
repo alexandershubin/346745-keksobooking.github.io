@@ -66,7 +66,6 @@ var formType = document.querySelector('#type');
 var formPrice = document.querySelector('#price');
 
 // Массив со всеми объявлениями
-// advert.js
 var advertArray = [];
 
 // Получить случайный элемент массива
@@ -144,9 +143,9 @@ var renderPins = function (pins) {
 
   addClickHandlersToPins();
 };
-console.log('createPin');
+
 // Создаем DOM элемент обьявления
-// DOM - advert.js
+
 var createCardElement = function (advert) {
   deleteCurrentCard();
 
@@ -163,7 +162,7 @@ var createCardElement = function (advert) {
   var offerPhotos = card.querySelector('.popup__photos');
   var offerAvatar = card.querySelector('.popup__avatar');
   var closeButton = card.querySelector('.popup__close');
-
+  debugger;
   offerTitle.textContent = advert.offer.title;
   offerAdress.textContent = advert.offer.address;
   offerPrice.textContent = advert.offer.price + ' ₽/ночь';

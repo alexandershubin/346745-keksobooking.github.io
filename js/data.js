@@ -66,7 +66,7 @@
   var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
   window.data = {
-    ADS_COUNTDS: ADS_COUNT,
+    ADS_COUNTS: ADS_COUNT,
     MIN_Y: MIN_Y,
     MAX_Y: MAX_Y,
     MIN_X: MIN_X,
