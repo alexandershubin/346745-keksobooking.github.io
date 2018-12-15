@@ -144,7 +144,7 @@ var renderPins = function (pins) {
 
   addClickHandlersToPins();
 };
-
+console.log('createPin');
 // Создаем DOM элемент обьявления
 // DOM - advert.js
 var createCardElement = function (advert) {

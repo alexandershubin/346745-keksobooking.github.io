@@ -46,7 +46,7 @@
     for (var j = 0; j < allPins.length; j++) {
       allPins[j].addEventListener('click', function (evt) {
         var dataId = evt.currentTarget.getAttribute('data-id');
-        window.data.map.insertBefore(window.advert.createCardElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
+        window.data.map.insertBefore(window.card.createCardElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
       });
     }
   };
@@ -70,10 +70,22 @@
     }
   };
 
+  // Инициализируем приложение
+  var init = function () {
+    fillAdress();
+
+    window.data.mapPin.addEventListener('mouseup', mapPinMouseupHandler);
+
+    for (var i = 0; i < window.data.ADS_COUNT; i++) {
+      window.data.advertArray.push(window.advert.generateAdvert(i + 1));
+    }
+  };
+
+  init();
+  createPin();
+
   window.pins = {
     deleteCurrentCard: deleteCurrentCard,
-    fillAdress: fillAdress,
-    mapPinMouseupHandler: mapPinMouseupHandler
   };
 
 })();

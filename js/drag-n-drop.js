@@ -85,17 +85,4 @@ var address = document.querySelector('#address');
     document.addEventListener('mouseup', onMouseUp);
   });
 
-  // Инициализируем приложение
-  var init = function () {
-    window.pins.fillAdress();
-
-    window.data.mapPin.addEventListener('mouseup', window.pins.mapPinMouseupHandler);
-
-    for (var i = 0; i < window.data.ADS_COUNT; i++) {
-      window.data.advertArray.push(window.cards.generateAdvert(i + 1));
-    }
-  };
-
-  init();
-
 })();
