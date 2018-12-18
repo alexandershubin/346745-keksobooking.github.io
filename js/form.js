@@ -51,24 +51,31 @@
   });
 
   // установка соответствия названия жилища и цены
-  var compareFlatPrice = function () {
-    if (formType.value === 'bungalo') {
-      formPrice.min = 0;
-      formPrice.placeholder = 0;
-    } else if (formType.value === 'flat') {
-      formPrice.min = 1000;
-      formPrice.placeholder = 1000;
-    } else if (formType.value === 'house') {
-      formPrice.min = 5000;
-      formPrice.placeholder = 5000;
-    } else if (formType.value === 'palace') {
-      formPrice.min = 10000;
-      formPrice.placeholder = 10000;
+  var typeFlat = {
+    bungalo: {
+      minPrice: 0
+    },
+    flat: {
+      minPrice: 1000
+    },
+    house: {
+      minPrice: 5000
+    },
+    palace: {
+      minPrice: 10000
     }
   };
 
+  var onTypeFlatChange = function () {
+    var type = formType.value;
+    var minPrice = typeFlat[type].minPrice;
+
+    formPrice.placeholder = minPrice;
+    formPrice.min = minPrice;
+  };
+
   var setValidation = function () {
-    formType.addEventListener('input', compareFlatPrice);
+    formType.addEventListener('input', onTypeFlatChange);
   };
   setValidation();
 
