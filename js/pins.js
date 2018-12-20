@@ -40,6 +40,12 @@
     }
   };
 
+  window.data.adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(new FormData(window.data.adForm), window.message.elementSuccessMessage, window.message.elementErrorMessage);
+    startActivMainPin();
+  });
+
   // Добавить обработчики к пинам
   var addClickHandlersToPins = function () {
     var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
@@ -78,7 +84,7 @@
 
   window.pins = {
     deleteCurrentCard: deleteCurrentCard,
-    startActivMainPin: startActivMainPin
+    startActivMainPin: startActivMainPin,
   };
 
 })();
