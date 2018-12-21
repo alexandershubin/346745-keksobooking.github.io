@@ -79,4 +79,13 @@
   };
   setValidation();
 
+  // Обработчик submit
+
+  window.data.adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(new FormData(window.data.adForm), window.message.elementErrorMessage, window.message.elementSuccessMessage);
+    window.pins.startActivMainPin();
+  });
+
+
 })();

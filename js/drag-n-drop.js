@@ -48,6 +48,7 @@
     var dragged = false;
 
     var onMouseMove = function (moveEvt) {
+      window.backend.download(new FormData(window.data.adForm), window.message.elementSuccessMessage, window.message.elementErrorMessage);
       moveEvt.preventDefault();
       dragged = true;
 
@@ -68,7 +69,6 @@
     };
 
     var onMouseUp = function (upEvt) {
-
       if (mapDisabled) {
         window.pins.startActivMainPin();
         mapDisabled = false;
