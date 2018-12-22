@@ -2,12 +2,14 @@
 (function () {
 
   // Находим необходимые элементы DOM
+  var adForm = document.querySelector('.ad-form');
   var roomNumber = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
   var formType = document.querySelector('#type');
   var formPrice = document.querySelector('#price');
+  var resetButton = adForm.querySelector('.ad-form__reset');
 
   // установка соответствия количества гостей количеству комнат
 
@@ -79,13 +81,15 @@
   };
   setValidation();
 
-  // Обработчик submit
-
+  // Отправляет данные формы на сервер
   window.data.adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(window.data.adForm), window.message.elementErrorMessage, window.message.elementSuccessMessage);
     window.pins.startActivMainPin();
   });
 
+  resetButton.addEventListener('click', function (evt) {
+    evt.preventDefault();
+  });
 
 })();

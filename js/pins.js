@@ -79,6 +79,7 @@
   window.pins = {
     deleteCurrentCard: deleteCurrentCard,
     startActivMainPin: startActivMainPin,
+    addClickHandlersToPins: addClickHandlersToPins
   };
 
 })();

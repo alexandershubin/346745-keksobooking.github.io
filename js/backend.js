@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var STATUS_OK = 200;
-  var TIMEOUT = 10000;
 
   var URL_DOWNLOAD = 'https://js.dump.academy/keksobooking/data';
   var URL_UPLOAD = 'https://js.dump.academy/keksobooking/';
@@ -12,14 +10,14 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === STATUS_OK) {
+      if (xhr.status === 200) {
         onSuccess(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 
-    xhr.timeout = TIMEOUT;
+    xhr.timeout = 10000;
 
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');

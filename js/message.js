@@ -2,6 +2,7 @@
 
 (function () {
   var mainElement = document.querySelector('main');
+  var ESC = 27;
 
   var elementErrorMessage = function (message) {
     var error = document.querySelector('#error').content.querySelector('.error');
@@ -13,7 +14,7 @@
 
     mainElement.appendChild(errorElement);
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.button.ESC) {
+      if (evt.keyCode === ESC) {
         closeErrorMessage();
       }
     });
@@ -33,7 +34,7 @@
     var successElement = success.cloneNode(true);
     mainElement.appendChild(successElement);
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.button.Keycode.ESC) {
+      if (evt.keyCode === ESC) {
         closeSuccessMessage();
       }
     });
