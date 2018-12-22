@@ -14,7 +14,6 @@
   // установка соответствия количества гостей количеству комнат
 
   var roomNumberСhangeHandler = function (connect) {
-    connect.setCustomValidity('Выберите');
     connect.addEventListener('change', function () {
       roomNumber.setCustomValidity('');
       capacity.setCustomValidity('');
@@ -81,15 +80,21 @@
   };
   setValidation();
 
+  var deactivateMap = function () {
+    adForm.reset();
+  };
+
   // Отправляет данные формы на сервер
   window.data.adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(window.data.adForm), window.message.elementErrorMessage, window.message.elementSuccessMessage);
     window.pins.startActivMainPin();
+    deactivateMap();
   });
 
   resetButton.addEventListener('click', function (evt) {
     evt.preventDefault();
+    deactivateMap();
   });
 
 })();

@@ -54,7 +54,7 @@
   var FLAT_DISCRIPTION = '';
   var PIN_MAIN_RADIUS = 31;
   var PIN_MAIN_HEIGHT = 84;
-  var advertArray = [];
+
 
   var pinsContainer = document.querySelector('.map__pins');
   var map = document.querySelector('.map');
@@ -93,7 +93,7 @@
     fieldset: fieldset,
     templatePin: templatePin,
     templateCard: templateCard,
-    advertArray: advertArray,
+    advertArray: []
   };
 
 })();

@@ -36,6 +36,10 @@
     address.value = pinMainX + ', ' + pinMainY;
   };
 
+  var onSuccess = function (data) {
+    window.data.advertArray = data;
+    window.pins.render(data);
+  };
 
   mapPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -48,7 +52,6 @@
     var dragged = false;
 
     var onMouseMove = function (moveEvt) {
-      window.backend.download(new FormData(window.data.adForm), window.message.elementSuccessMessage, window.message.elementErrorMessage);
       moveEvt.preventDefault();
       dragged = true;
 
@@ -70,6 +73,7 @@
 
     var onMouseUp = function (upEvt) {
       if (mapDisabled) {
+        window.backend.download(onSuccess, window.message.elementErrorMessage);
         window.pins.startActivMainPin();
         mapDisabled = false;
       }

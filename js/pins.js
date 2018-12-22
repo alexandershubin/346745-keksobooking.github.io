@@ -33,7 +33,6 @@
   var startActivMainPin = function () {
     window.data.map.classList.remove('map--faded');
     window.data.adForm.classList.remove('ad-form--disabled');
-    renderPins(window.data.advertArray);
 
     for (var i = 0; i < window.data.fieldset.length; i++) {
       window.data.fieldset[i].removeAttribute('disabled');
@@ -70,16 +69,13 @@
     }
   };
 
-  for (var i = 0; i < window.data.ADS_COUNTS; i++) {
-    window.data.advertArray.push(window.advert.generate(i + 1));
-  }
-
   fillAdress();
 
   window.pins = {
     deleteCurrentCard: deleteCurrentCard,
     startActivMainPin: startActivMainPin,
-    addClickHandlersToPins: addClickHandlersToPins
+    addClickHandlersToPins: addClickHandlersToPins,
+    render: renderPins
   };
 
 })();
