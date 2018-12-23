@@ -1,8 +1,9 @@
 'use strict';
 (function () {
 
-  // Создаём метки
+  var mapPinsList = document.querySelector('.map__pins');
 
+  // Создаём метки
   var createPin = function (pin, index) {
     var element = window.data.templatePin.cloneNode(true);
     var pinImage = element.querySelector('img');
@@ -50,6 +51,15 @@
     }
   };
 
+  var removePins = function () {
+    var mapPins = document.querySelectorAll('.map__pin');
+    for (var i = 0; i < mapPins.length; i++) {
+      if (!mapPins[i].classList.contains('map__pin--main')) {
+        mapPinsList.removeChild(mapPins[i]);
+      }
+    }
+  };
+
   // Заполнить адрес
   var fillAdress = function () {
     var left = window.data.mapPin.offsetLeft - window.data.FLAT_WIDTH / 2;
@@ -75,7 +85,9 @@
     deleteCurrentCard: deleteCurrentCard,
     startActivMainPin: startActivMainPin,
     addClickHandlersToPins: addClickHandlersToPins,
-    render: renderPins
+    render: renderPins,
+    removePins: removePins,
+    fillAdress: fillAdress
   };
 
 })();

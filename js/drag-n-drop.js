@@ -6,7 +6,6 @@
   var mapPin = document.querySelector('.map__pin--main');
   var address = document.querySelector('#address');
 
-  var mapDisabled = true;
 
   var getX = function () {
     var x = mapPin.offsetLeft;
@@ -72,10 +71,9 @@
     };
 
     var onMouseUp = function (upEvt) {
-      if (mapDisabled) {
+      if (window.form.deactivateMap) {
         window.backend.download(onSuccess, window.message.elementErrorMessage);
         window.pins.startActivMainPin();
-        mapDisabled = false;
       }
 
       upEvt.preventDefault();
@@ -96,5 +94,9 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  window.drag = {
+    onSuccess: onSuccess
+  };
 
 })();

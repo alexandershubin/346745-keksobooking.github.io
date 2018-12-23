@@ -82,6 +82,10 @@
 
   var deactivateMap = function () {
     adForm.reset();
+    adForm.classList.add('ad-form--disabled');
+    window.data.map.classList.add('map--faded');
+    window.pins.removePins();
+    window.pins.deleteCurrentCard();
   };
 
   // Отправляет данные формы на сервер
@@ -96,5 +100,9 @@
     evt.preventDefault();
     deactivateMap();
   });
+
+  window.form = {
+    deactivateMap: deactivateMap
+  };
 
 })();
