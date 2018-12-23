@@ -1,8 +1,9 @@
 'use strict';
 (function () {
 
-  // Создаём метки
+  var mapPinsList = document.querySelector('.map__pins');
 
+  // Создаём метки
   var createPin = function (pin, index) {
     var element = window.data.templatePin.cloneNode(true);
     var pinImage = element.querySelector('img');
@@ -33,7 +34,6 @@
   var startActivMainPin = function () {
     window.data.map.classList.remove('map--faded');
     window.data.adForm.classList.remove('ad-form--disabled');
-    renderPins(window.data.advertArray);
 
     for (var i = 0; i < window.data.fieldset.length; i++) {
       window.data.fieldset[i].removeAttribute('disabled');
@@ -48,6 +48,15 @@
         var dataId = evt.currentTarget.getAttribute('data-id');
         window.data.map.insertBefore(window.card.createCardElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
       });
+    }
+  };
+
+  var removePins = function () {
+    var mapPins = document.querySelectorAll('.map__pin');
+    for (var i = 0; i < mapPins.length; i++) {
+      if (!mapPins[i].classList.contains('map__pin--main')) {
+        mapPinsList.removeChild(mapPins[i]);
+      }
     }
   };
 
@@ -70,15 +79,15 @@
     }
   };
 
-  for (var i = 0; i < window.data.ADS_COUNTS; i++) {
-    window.data.advertArray.push(window.advert.generate(i + 1));
-  }
-
   fillAdress();
 
   window.pins = {
     deleteCurrentCard: deleteCurrentCard,
-    startActivMainPin: startActivMainPin
+    startActivMainPin: startActivMainPin,
+    addClickHandlersToPins: addClickHandlersToPins,
+    render: renderPins,
+    removePins: removePins,
+    fillAdress: fillAdress
   };
 
 })();
