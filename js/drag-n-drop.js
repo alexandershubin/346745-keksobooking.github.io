@@ -5,7 +5,13 @@
 (function () {
   var mapPin = document.querySelector('.map__pin--main');
   var address = document.querySelector('#address');
+  var MAIN_PIN_START_LEFT = '570px';
+  var MAIN_PIN_START_TOP = '375px';
 
+  var setToStart = function () {
+    mapPin.style.left = MAIN_PIN_START_LEFT;
+    mapPin.style.top = MAIN_PIN_START_TOP;
+  };
 
   var getX = function () {
     var x = mapPin.offsetLeft;
@@ -96,7 +102,9 @@
   });
 
   window.drag = {
-    onSuccess: onSuccess
+    onSuccess: onSuccess,
+    getPinMain: getPinMain,
+    setToStart: setToStart
   };
 
 })();

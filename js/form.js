@@ -86,6 +86,7 @@
     window.data.map.classList.add('map--faded');
     window.pins.removePins();
     window.pins.deleteCurrentCard();
+    window.pins.fillAdress();
   };
 
   // Отправляет данные формы на сервер
@@ -93,6 +94,7 @@
     evt.preventDefault();
     window.backend.upload(new FormData(window.data.adForm), window.message.elementErrorMessage, window.message.elementSuccessMessage);
     window.pins.startActivMainPin();
+    window.drag.setToStart();
     deactivateMap();
   });
 
