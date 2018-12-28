@@ -104,7 +104,7 @@
   });
 
   window.form = {
-    deactivateMap: deactivateMap
+    deactivateMap: deactivateMap,
   };
 
 })();

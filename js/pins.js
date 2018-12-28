@@ -30,6 +30,7 @@
     addClickHandlersToPins();
   };
 
+
   // Обработчик клика по пину
   var startActivMainPin = function () {
     window.data.map.classList.remove('map--faded');
@@ -51,6 +52,7 @@
     }
   };
 
+  // Удаляет пины с карты
   var removePins = function () {
     var mapPins = document.querySelectorAll('.map__pin');
     for (var i = 0; i < mapPins.length; i++) {
@@ -58,6 +60,18 @@
         mapPinsList.removeChild(mapPins[i]);
       }
     }
+  };
+
+  var cutPins = function (arr) {
+    var pins = arr.slice();
+    arr.forEach(function (item) {
+      if (item.offer) {
+        pins.push(item);
+      }
+    });
+    pins = pins.slice(0, window.data.MAX_PINS);
+
+    return pins;
   };
 
   // Заполнить адрес
@@ -87,7 +101,8 @@
     addClickHandlersToPins: addClickHandlersToPins,
     render: renderPins,
     removePins: removePins,
-    fillAdress: fillAdress
+    fillAdress: fillAdress,
+    cutPins: cutPins
   };
 
 })();

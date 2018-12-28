@@ -54,6 +54,7 @@
   var FLAT_DISCRIPTION = '';
   var PIN_MAIN_RADIUS = 31;
   var PIN_MAIN_HEIGHT = 84;
+  var MAX_PINS = 5;
 
 
   var pinsContainer = document.querySelector('.map__pins');
@@ -85,6 +86,7 @@
     FLAT_PHOTOS: FLAT_PHOTOS,
     FLAT_FEATURES: FLAT_FEATURES,
     FLAT_GUESTS: FLAT_GUESTS,
+    MAX_PINS: MAX_PINS,
     pinsContainer: pinsContainer,
     map: map,
     adForm: adForm,
