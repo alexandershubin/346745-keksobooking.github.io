@@ -3,18 +3,17 @@
 // цикл Drag-and-drop для маркера
 
 (function () {
-  var mapPin = document.querySelector('.map__pin--main');
-  var address = document.querySelector('#address');
+
   var MAIN_PIN_START_LEFT = '570px';
   var MAIN_PIN_START_TOP = '375px';
 
   var setToStart = function () {
-    mapPin.style.left = MAIN_PIN_START_LEFT;
-    mapPin.style.top = MAIN_PIN_START_TOP;
+    window.data.mapPin.style.left = MAIN_PIN_START_LEFT;
+    window.data.mapPin.style.top = MAIN_PIN_START_TOP;
   };
 
   var getX = function () {
-    var x = mapPin.offsetLeft;
+    var x = window.data.mapPin.offsetLeft;
     if (x < window.data.MIN_X) {
       x = window.data.MIN_X;
     }
@@ -25,7 +24,7 @@
   };
 
   var getY = function () {
-    var y = mapPin.offsetTop;
+    var y = window.data.mapPin.offsetTop;
     if (y < window.data.MIN_Y) {
       y = window.data.MIN_Y;
     }
@@ -38,7 +37,7 @@
   var getPinMain = function (width, height) {
     var pinMainX = getX() + width;
     var pinMainY = getY() + height;
-    address.value = pinMainX + ', ' + pinMainY;
+    window.data.address.value = pinMainX + ', ' + pinMainY;
   };
 
   var onSuccess = function (data) {
@@ -46,7 +45,7 @@
     window.pins.render(data);
   };
 
-  mapPin.addEventListener('mousedown', function (evt) {
+  window.data.mapPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -70,8 +69,8 @@
         y: moveEvt.clientY
       };
 
-      mapPin.style.left = (getX() - shift.x) + 'px';
-      mapPin.style.top = (getY() - shift.y) + 'px';
+      window.data.mapPin.style.left = (getX() - shift.x) + 'px';
+      window.data.mapPin.style.top = (getY() - shift.y) + 'px';
 
       getPinMain(window.data.PIN_MAIN_RADIUS, window.data.PIN_MAIN_HEIGHT);
     };
@@ -90,9 +89,9 @@
       if (dragged) {
         var onClickPreventDefault = function () {
           evt.preventDefault();
-          mapPin.removeEventListener('click', onClickPreventDefault);
+          window.data.mapPin.removeEventListener('click', onClickPreventDefault);
         };
-        mapPin.addEventListener('click', onClickPreventDefault);
+        window.data.mapPin.addEventListener('click', onClickPreventDefault);
       }
 
     };

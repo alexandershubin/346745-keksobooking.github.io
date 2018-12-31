@@ -1,10 +1,8 @@
 'use strict';
 (function () {
 
-  var mapPinsList = document.querySelector('.map__pins');
-
   // Создаём метки
-  var createPin = function (pin, index) {
+  var createPin = function (pin) {
     var element = window.data.templatePin.cloneNode(true);
     var pinImage = element.querySelector('img');
 
@@ -13,7 +11,9 @@
     pinImage.src = pin.author.avatar;
     pinImage.alt = pin.offer.title;
 
-    element.setAttribute('data-id', index);
+    var realIndex = window.data.advertArray.indexOf(pin);
+
+    element.setAttribute('data-id', realIndex);
 
     return element;
   };
@@ -21,7 +21,8 @@
   // Отрисовываем сгенерированые DOM-элементы в блок .map__pins
   var renderPins = function (pins) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < pins.length; i++) {
+    var cuttedArray = pins.slice(0, window.data.MAX_PINS);
+    for (var i = 0; i < cuttedArray.length; i++) {
       var newPin = createPin(pins[i], i);
       fragment.appendChild(newPin);
     }
@@ -57,21 +58,9 @@
     var mapPins = document.querySelectorAll('.map__pin');
     for (var i = 0; i < mapPins.length; i++) {
       if (!mapPins[i].classList.contains('map__pin--main')) {
-        mapPinsList.removeChild(mapPins[i]);
+        window.data.pinsContainer.removeChild(mapPins[i]);
       }
     }
-  };
-
-  var cutPins = function (arr) {
-    var pins = arr.slice();
-    arr.forEach(function (item) {
-      if (item.offer) {
-        pins.push(item);
-      }
-    });
-    pins = pins.slice(0, window.data.MAX_PINS);
-
-    return pins;
   };
 
   // Заполнить адрес
@@ -101,8 +90,7 @@
     addClickHandlersToPins: addClickHandlersToPins,
     render: renderPins,
     removePins: removePins,
-    fillAdress: fillAdress,
-    cutPins: cutPins
+    fillAdress: fillAdress
   };
 
 })();

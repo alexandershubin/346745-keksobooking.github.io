@@ -2,17 +2,15 @@
 (function () {
 
   // Находим необходимые элементы DOM
-  var adForm = document.querySelector('.ad-form');
   var roomNumber = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
   var formType = document.querySelector('#type');
   var formPrice = document.querySelector('#price');
-  var resetButton = adForm.querySelector('.ad-form__reset');
+  var resetButton = document.querySelector('.ad-form__reset');
 
   // установка соответствия количества гостей количеству комнат
-
   var roomNumberСhangeHandler = function (connect) {
     connect.addEventListener('change', function () {
       roomNumber.setCustomValidity('');
@@ -81,8 +79,8 @@
   setValidation();
 
   var deactivateMap = function () {
-    adForm.reset();
-    adForm.classList.add('ad-form--disabled');
+    window.data.adForm.reset();
+    window.data.adForm.classList.add('ad-form--disabled');
     window.data.map.classList.add('map--faded');
     window.pins.removePins();
     window.pins.deleteCurrentCard();
@@ -104,7 +102,7 @@
   });
 
   window.form = {
-    deactivateMap: deactivateMap,
+    deactivateMap: deactivateMap
   };
 
 })();

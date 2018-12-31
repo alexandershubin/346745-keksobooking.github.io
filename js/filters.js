@@ -1,8 +1,6 @@
 'use strict';
 (function () {
 
-  var DEBOUNCE_INTERVAL = 500;
-
   var mapFiltersForm = document.querySelector('.map__filters');
 
   var priceMap = {
@@ -60,26 +58,11 @@
     });
   };
 
-  var debounce = function (cb) {
-    var lastTimeout = null;
-
-    return function () {
-      var parameters = arguments;
-      if (lastTimeout) {
-        window.clearTimeout(lastTimeout);
-      }
-      lastTimeout = window.setTimeout(function () {
-        cb.apply(null, parameters);
-      }, DEBOUNCE_INTERVAL);
-    };
-  };
-
-  var onMapFiltersChange = debounce(function () {
+  var onMapFiltersChange = window.utils.debounce(function () {
     window.pins.removePins();
     window.pins.deleteCurrentCard();
     var data = filterData(window.data.advertArray);
-    var pins = window.pins.cutPins(data);
-    window.pins.render(pins);
+    window.pins.render(data);
   });
 
   mapFiltersForm.addEventListener('change', onMapFiltersChange);
