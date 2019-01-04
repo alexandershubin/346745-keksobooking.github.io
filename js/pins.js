@@ -37,8 +37,8 @@
     window.data.map.classList.remove('map--faded');
     window.data.adForm.classList.remove('ad-form--disabled');
 
-    for (var i = 0; i < window.data.fieldset.length; i++) {
-      window.data.fieldset[i].removeAttribute('disabled');
+    for (var i = 0; i < window.data.disabledElements.length; i++) {
+      window.data.disabledElements[i].removeAttribute('disabled');
     }
   };
 
@@ -48,13 +48,13 @@
     for (var j = 0; j < allPins.length; j++) {
       allPins[j].addEventListener('click', function (evt) {
         var dataId = evt.currentTarget.getAttribute('data-id');
-        window.data.map.insertBefore(window.card.createCardElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
+        window.data.map.insertBefore(window.card.createCard(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
       });
     }
   };
 
   // Удаляет пины с карты
-  var removePins = function () {
+  var deleteAllPins = function () {
     var mapPins = document.querySelectorAll('.map__pin');
     for (var i = 0; i < mapPins.length; i++) {
       if (!mapPins[i].classList.contains('map__pin--main')) {
@@ -64,7 +64,7 @@
   };
 
   // Заполнить адрес
-  var fillAdress = function () {
+  var fillFullAdress = function () {
     var left = window.data.mapPin.offsetLeft - window.data.FLAT_WIDTH / 2;
     var top = window.data.mapPin.offsetTop - window.data.FLAT_WIDTH / 2;
 
@@ -76,21 +76,20 @@
   // Удаляем прошлую карточку
   var deleteCurrentCard = function () {
     var card = document.querySelector('.map__card');
-
     if (card) {
       card.remove();
     }
+    document.removeEventListener('keydown', deleteCurrentCard);
   };
 
-  fillAdress();
+  fillFullAdress();
 
   window.pins = {
-    deleteCurrentCard: deleteCurrentCard,
-    startActivMainPin: startActivMainPin,
-    addClickHandlersToPins: addClickHandlersToPins,
+    deleteCard: deleteCurrentCard,
+    startPin: startActivMainPin,
     render: renderPins,
-    removePins: removePins,
-    fillAdress: fillAdress
+    removePins: deleteAllPins,
+    fillAdress: fillFullAdress
   };
 
 })();

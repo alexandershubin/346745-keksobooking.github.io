@@ -1,9 +1,7 @@
 'use strict';
-
-// цикл Drag-and-drop для маркера
-
 (function () {
 
+  // цикл Drag-and-drop для маркера
   var MAIN_PIN_START_LEFT = '570px';
   var MAIN_PIN_START_TOP = '375px';
 
@@ -40,7 +38,7 @@
     window.data.address.value = pinMainX + ', ' + pinMainY;
   };
 
-  var onSuccess = function (data) {
+  var getOnSuccess = function (data) {
     window.data.advertArray = data;
     window.pins.render(data);
   };
@@ -76,9 +74,9 @@
     };
 
     var onMouseUp = function (upEvt) {
-      if (window.form.deactivateMap) {
-        window.backend.download(onSuccess, window.message.elementErrorMessage);
-        window.pins.startActivMainPin();
+      if (window.form.deactivate) {
+        window.backend.download(getOnSuccess, window.message.error);
+        window.pins.startPin();
       }
 
       upEvt.preventDefault();
@@ -101,9 +99,8 @@
   });
 
   window.drag = {
-    onSuccess: onSuccess,
-    getPinMain: getPinMain,
-    setToStart: setToStart
+    getPin: getPinMain,
+    start: setToStart
   };
 
 })();

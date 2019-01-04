@@ -60,14 +60,11 @@
 
   var onMapFiltersChange = window.utils.debounce(function () {
     window.pins.removePins();
-    window.pins.deleteCurrentCard();
+    window.pins.deleteCard();
     var data = filterData(window.data.advertArray);
     window.pins.render(data);
   });
 
   mapFiltersForm.addEventListener('change', onMapFiltersChange);
 
-  window.filter = {
-    onMapFiltersChange: onMapFiltersChange
-  };
 })();

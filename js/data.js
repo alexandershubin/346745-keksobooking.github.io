@@ -1,13 +1,5 @@
 'use strict';
 (function () {
-// Обьявляем константы
-
-  var OFFER_TYPES = {
-    palace: 'Дворец',
-    flat: 'Квартира',
-    house: 'Дом',
-    bungalo: 'Бунгало'
-  };
 
   var MIN_Y = 130;
   var MAX_Y = 630;
@@ -18,14 +10,21 @@
   var PIN_MAIN_RADIUS = 31;
   var PIN_MAIN_HEIGHT = 84;
   var MAX_PINS = 5;
+  var ESC_BUTTON = 27;
 
+  var OFFER_TYPES = {
+    palace: 'Дворец',
+    flat: 'Квартира',
+    house: 'Дом',
+    bungalo: 'Бунгало'
+  };
 
   var pinsContainer = document.querySelector('.map__pins');
   var map = document.querySelector('.map');
   var adForm = document.querySelector('.ad-form');
   var address = document.querySelector('#address');
   var mapPin = document.querySelector('.map__pin--main');
-  var fieldset = document.querySelectorAll('[disabled]');
+  var disabledElements = document.querySelectorAll('[disabled]');
   var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
   var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
@@ -40,12 +39,13 @@
     PIN_MAIN_HEIGHT: PIN_MAIN_HEIGHT,
     OFFER_TYPES: OFFER_TYPES,
     MAX_PINS: MAX_PINS,
+    ESC_BUTTON: ESC_BUTTON,
     pinsContainer: pinsContainer,
     map: map,
     adForm: adForm,
     address: address,
     mapPin: mapPin,
-    fieldset: fieldset,
+    disabledElements: disabledElements,
     templatePin: templatePin,
     templateCard: templateCard,
     advertArray: []
