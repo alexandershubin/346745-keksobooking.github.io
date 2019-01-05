@@ -18,7 +18,7 @@
     return arr.slice(Math.floor(Math.random() * arr.length));
   };
 
-  var debounce = function (cb) {
+  var getDebounce = function (cb) {
     var lastTimeout = null;
 
     return function () {
@@ -33,10 +33,10 @@
   };
 
   window.utils = {
-    getRandomNumber: getRandomNumber,
-    getRandomItem: getRandomItem,
-    getRandomArrayLength: getRandomArrayLength,
-    debounce: debounce
+    Random: getRandomNumber,
+    Item: getRandomItem,
+    ArrayLength: getRandomArrayLength,
+    debounce: getDebounce
   };
 
 })();

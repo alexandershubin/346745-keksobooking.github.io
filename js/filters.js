@@ -3,7 +3,7 @@
 
   var mapFiltersForm = document.querySelector('.map__filters');
 
-  var priceMap = {
+  var PriceMap = {
     'low': {
       start: 0,
       end: 10000
@@ -28,7 +28,7 @@
     },
 
     'housing-price': function (data, filter) {
-      return data.offer.price >= priceMap[filter.value].start && data.offer.price < priceMap[filter.value].end;
+      return data.offer.price >= PriceMap[filter.value].start && data.offer.price < PriceMap[filter.value].end;
     },
 
     'housing-rooms': function (data, filter) {

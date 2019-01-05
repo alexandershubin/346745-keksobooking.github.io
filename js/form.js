@@ -48,7 +48,7 @@
   });
 
   // установка соответствия названия жилища и цены
-  var typeFlat = {
+  var TypeFlat = {
     bungalo: {
       minPrice: 0
     },
@@ -65,7 +65,7 @@
 
   var onTypeFlatChange = function () {
     var type = formType.value;
-    var minPrice = typeFlat[type].minPrice;
+    var minPrice = TypeFlat[type].minPrice;
 
     formPrice.placeholder = minPrice;
     formPrice.min = minPrice;
