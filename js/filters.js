@@ -59,7 +59,7 @@
   };
 
   var onMapFiltersChange = window.utils.debounce(function () {
-    window.pins.removePins();
+    window.pins.remove();
     window.pins.deleteCard();
     var data = filterData(window.data.advertArray);
     window.pins.render(data);

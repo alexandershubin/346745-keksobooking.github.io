@@ -76,7 +76,7 @@
     var onMouseUp = function (upEvt) {
       if (window.form.deactivate) {
         window.backend.download(getOnSuccess, window.message.error);
-        window.pins.startPin();
+        window.pins.startMain();
       }
 
       upEvt.preventDefault();

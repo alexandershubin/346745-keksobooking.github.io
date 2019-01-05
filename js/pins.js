@@ -48,13 +48,13 @@
     for (var j = 0; j < allPins.length; j++) {
       allPins[j].addEventListener('click', function (evt) {
         var dataId = evt.currentTarget.getAttribute('data-id');
-        window.data.map.insertBefore(window.card.createCard(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
+        window.data.map.insertBefore(window.card.createElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
       });
     }
   };
 
   // Удаляет пины с карты
-  var deleteAllPins = function () {
+  var removeAllPins = function () {
     var mapPins = document.querySelectorAll('.map__pin');
     for (var i = 0; i < mapPins.length; i++) {
       if (!mapPins[i].classList.contains('map__pin--main')) {
@@ -86,9 +86,9 @@
 
   window.pins = {
     deleteCard: deleteCurrentCard,
-    startPin: startActivMainPin,
+    startMain: startActivMainPin,
     render: renderPins,
-    removePins: deleteAllPins,
+    remove: removeAllPins,
     fillAdress: fillFullAdress
   };
 

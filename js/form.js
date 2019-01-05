@@ -80,7 +80,7 @@
     window.data.adForm.reset();
     window.data.adForm.classList.add('ad-form--disabled');
     window.data.map.classList.add('map--faded');
-    window.pins.removePins();
+    window.pins.remove();
     window.pins.deleteCard();
     window.pins.fillAdress();
   };
@@ -89,7 +89,7 @@
   window.data.adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(window.data.adForm), window.message.error, window.message.success);
-    window.pins.startPin();
+    window.pins.startMain();
     window.drag.start();
     deactivateMap();
   });
