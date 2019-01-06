@@ -1,10 +1,8 @@
 'use strict';
 (function () {
 
-  var mapPinsList = document.querySelector('.map__pins');
-
   // Создаём метки
-  var createPin = function (pin, index) {
+  var createPin = function (pin) {
     var element = window.data.templatePin.cloneNode(true);
     var pinImage = element.querySelector('img');
 
@@ -13,7 +11,9 @@
     pinImage.src = pin.author.avatar;
     pinImage.alt = pin.offer.title;
 
-    element.setAttribute('data-id', index);
+    var realIndex = window.data.advertArray.indexOf(pin);
+
+    element.setAttribute('data-id', realIndex);
 
     return element;
   };
@@ -21,7 +21,8 @@
   // Отрисовываем сгенерированые DOM-элементы в блок .map__pins
   var renderPins = function (pins) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < pins.length; i++) {
+    var cuttedArray = pins.slice(0, window.data.MAX_PINS);
+    for (var i = 0; i < cuttedArray.length; i++) {
       var newPin = createPin(pins[i], i);
       fragment.appendChild(newPin);
     }
@@ -30,13 +31,14 @@
     addClickHandlersToPins();
   };
 
+
   // Обработчик клика по пину
   var startActivMainPin = function () {
     window.data.map.classList.remove('map--faded');
     window.data.adForm.classList.remove('ad-form--disabled');
 
-    for (var i = 0; i < window.data.fieldset.length; i++) {
-      window.data.fieldset[i].removeAttribute('disabled');
+    for (var i = 0; i < window.data.disabledElements.length; i++) {
+      window.data.disabledElements[i].removeAttribute('disabled');
     }
   };
 
@@ -46,22 +48,23 @@
     for (var j = 0; j < allPins.length; j++) {
       allPins[j].addEventListener('click', function (evt) {
         var dataId = evt.currentTarget.getAttribute('data-id');
-        window.data.map.insertBefore(window.card.createCardElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
+        window.data.map.insertBefore(window.card.createElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
       });
     }
   };
 
-  var removePins = function () {
+  // Удаляет пины с карты
+  var removeAllPins = function () {
     var mapPins = document.querySelectorAll('.map__pin');
     for (var i = 0; i < mapPins.length; i++) {
       if (!mapPins[i].classList.contains('map__pin--main')) {
-        mapPinsList.removeChild(mapPins[i]);
+        window.data.pinsContainer.removeChild(mapPins[i]);
       }
     }
   };
 
   // Заполнить адрес
-  var fillAdress = function () {
+  var fillFullAdress = function () {
     var left = window.data.mapPin.offsetLeft - window.data.FLAT_WIDTH / 2;
     var top = window.data.mapPin.offsetTop - window.data.FLAT_WIDTH / 2;
 
@@ -73,21 +76,20 @@
   // Удаляем прошлую карточку
   var deleteCurrentCard = function () {
     var card = document.querySelector('.map__card');
-
     if (card) {
       card.remove();
     }
+    document.removeEventListener('keydown', deleteCurrentCard);
   };
 
-  fillAdress();
+  fillFullAdress();
 
   window.pins = {
-    deleteCurrentCard: deleteCurrentCard,
-    startActivMainPin: startActivMainPin,
-    addClickHandlersToPins: addClickHandlersToPins,
+    deleteCard: deleteCurrentCard,
+    startMain: startActivMainPin,
     render: renderPins,
-    removePins: removePins,
-    fillAdress: fillAdress
+    remove: removeAllPins,
+    fillAdress: fillFullAdress
   };
 
 })();

@@ -1,8 +1,13 @@
 'use strict';
-
 (function () {
   var mainElement = document.querySelector('main');
-  var ESC = 27;
+  var fieldsetElements = document.querySelectorAll('fieldset');
+
+  var disableElements = function (elements, boolean) {
+    Array.from(elements).forEach(function (element) {
+      element.disabled = boolean;
+    });
+  };
 
   var elementErrorMessage = function (message) {
     var error = document.querySelector('#error').content.querySelector('.error');
@@ -14,7 +19,7 @@
 
     mainElement.appendChild(errorElement);
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ESC) {
+      if (evt.keyCode === window.data.ESC_BUTTON) {
         closeErrorMessage();
       }
     });
@@ -24,9 +29,12 @@
 
   var closeErrorMessage = function () {
     var modalError = document.querySelector('.error');
-    mainElement.removeChild(modalError);
-    document.removeEventListener('keydown', closeErrorMessage);
-    modalError.removeEventListener('click', closeErrorMessage);
+    if (modalError) {
+      mainElement.removeChild(modalError);
+      document.removeEventListener('keydown', closeErrorMessage);
+      modalError.removeEventListener('click', closeErrorMessage);
+      disableElements(fieldsetElements, true);
+    }
   };
 
   var elementSuccessMessage = function () {
@@ -34,7 +42,7 @@
     var successElement = success.cloneNode(true);
     mainElement.appendChild(successElement);
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ESC) {
+      if (evt.keyCode === window.data.ESC_BUTTON) {
         closeSuccessMessage();
       }
     });
@@ -43,14 +51,17 @@
 
   var closeSuccessMessage = function () {
     var modalSucces = document.querySelector('.success');
-    mainElement.removeChild(modalSucces);
-    document.removeEventListener('keydown', closeSuccessMessage);
-    modalSucces.removeEventListener('click', closeSuccessMessage);
+    if (modalSucces) {
+      mainElement.removeChild(modalSucces);
+      document.removeEventListener('keydown', elementSuccessMessage);
+      document.removeEventListener('click', elementSuccessMessage);
+      disableElements(fieldsetElements, true);
+    }
   };
 
   window.message = {
-    elementErrorMessage: elementErrorMessage,
-    elementSuccessMessage: elementSuccessMessage
+    error: elementErrorMessage,
+    success: elementSuccessMessage
   };
 
 })();

@@ -4,7 +4,7 @@
   // Создаем DOM элемент обьявления
 
   var createCardElement = function (advert) {
-    window.pins.deleteCurrentCard();
+    window.pins.deleteCard();
 
     var card = window.data.templateCard.cloneNode(true);
 
@@ -48,13 +48,18 @@
       offerPhotos.appendChild(img);
     }
 
-    closeButton.addEventListener('click', window.pins.deleteCurrentCard);
+    closeButton.addEventListener('click', window.pins.deleteCard);
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.data.ESC_BUTTON) {
+        window.pins.deleteCard();
+      }
+    });
 
     return card;
   };
 
   window.card = {
-    createCardElement: createCardElement,
+    createElement: createCardElement,
   };
 
 })();
