@@ -1,7 +1,6 @@
 'use strict';
 (function () {
 
-  // Создаём метки
   var createPin = function (pin) {
     var element = window.data.templatePin.cloneNode(true);
     var pinImage = element.querySelector('img');
@@ -18,7 +17,6 @@
     return element;
   };
 
-  // Отрисовываем сгенерированые DOM-элементы в блок .map__pins
   var renderPins = function (pins) {
     var fragment = document.createDocumentFragment();
     var cuttedArray = pins.slice(0, window.data.MAX_PINS);
@@ -31,8 +29,6 @@
     addClickHandlersToPins();
   };
 
-
-  // Обработчик клика по пину
   var startActivMainPin = function () {
     window.data.map.classList.remove('map--faded');
     window.data.adForm.classList.remove('ad-form--disabled');
@@ -42,7 +38,6 @@
     }
   };
 
-  // Добавить обработчики к пинам
   var addClickHandlersToPins = function () {
     var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var j = 0; j < allPins.length; j++) {
@@ -53,7 +48,6 @@
     }
   };
 
-  // Удаляет пины с карты
   var removeAllPins = function () {
     var mapPins = document.querySelectorAll('.map__pin');
     for (var i = 0; i < mapPins.length; i++) {
@@ -63,7 +57,6 @@
     }
   };
 
-  // Заполнить адрес
   var fillFullAdress = function () {
     var left = window.data.mapPin.offsetLeft - window.data.FLAT_WIDTH / 2;
     var top = window.data.mapPin.offsetTop - window.data.FLAT_WIDTH / 2;
@@ -72,8 +65,6 @@
     window.data.address.readOnly = true;
   };
 
-
-  // Удаляем прошлую карточку
   var deleteCurrentCard = function () {
     var card = document.querySelector('.map__card');
     if (card) {

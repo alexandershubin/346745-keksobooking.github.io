@@ -1,7 +1,6 @@
 'use strict';
 (function () {
 
-  // Находим необходимые элементы DOM
   var roomNumber = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
   var capacityOptions = Array.from(capacity.options);
@@ -11,7 +10,6 @@
   var formPrice = document.querySelector('#price');
   var resetButton = document.querySelector('.ad-form__reset');
 
-  // установка соответствия количества гостей количеству комнат
   var compareRoomGuests = function (evt) {
     if (evt.target.value === '1') {
       capacityOptions[0].disabled = false;
@@ -38,7 +36,6 @@
 
   roomNumber.addEventListener('change', compareRoomGuests);
 
-  // установка соответствия времени заезда
   timeIn.addEventListener('change', function () {
     timeOut.selectedIndex = timeIn.selectedIndex;
   });
@@ -47,28 +44,27 @@
     timeIn.selectedIndex = timeOut.selectedIndex;
   });
 
-  // установка соответствия названия жилища и цены
   var TypeFlat = {
     bungalo: {
-      minPrice: 0
+      PRICE: 0
     },
     flat: {
-      minPrice: 1000
+      PRICE: 1000
     },
     house: {
-      minPrice: 5000
+      PRICE: 5000
     },
     palace: {
-      minPrice: 10000
+      PRICE: 10000
     }
   };
 
   var onTypeFlatChange = function () {
     var type = formType.value;
-    var minPrice = TypeFlat[type].minPrice;
+    var PRICE = TypeFlat[type].PRICE;
 
-    formPrice.placeholder = minPrice;
-    formPrice.min = minPrice;
+    formPrice.placeholder = PRICE;
+    formPrice.min = PRICE;
   };
 
   var setValidation = function () {
@@ -83,22 +79,29 @@
     window.pins.remove();
     window.pins.deleteCard();
     window.pins.fillAdress();
+
   };
 
-  // Отправляет данные формы на сервер
   window.data.adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.upload(new FormData(window.data.adForm), window.message.error, window.message.success);
+    window.backend.upload(new FormData(window.data.adForm), window.message.showError, window.message.showSuccess);
     window.pins.startMain();
-    window.drag.start();
+    window.drag.setStart();
     deactivateMap();
   });
 
   resetButton.addEventListener('click', function (evt) {
     evt.preventDefault();
+    window.pins.startMain();
+    window.drag.setStart();
     deactivateMap();
   });
 
+  roomNumber.removeEventListener('change', roomNumber);
+  timeIn.removeEventListener('change', timeIn);
+  timeOut.removeEventListener('change', timeOut);
+  window.data.adForm.removeEventListener('submit', window.data.adForm);
+  resetButton.removeEventListener('click', resetButton);
   window.form = {
     deactivate: deactivateMap
   };

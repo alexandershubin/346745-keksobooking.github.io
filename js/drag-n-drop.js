@@ -1,7 +1,6 @@
 'use strict';
 (function () {
 
-  // цикл Drag-and-drop для маркера
   var MAIN_PIN_START_LEFT = '570px';
   var MAIN_PIN_START_TOP = '375px';
 
@@ -75,7 +74,7 @@
 
     var onMouseUp = function (upEvt) {
       if (window.form.deactivate) {
-        window.backend.download(getOnSuccess, window.message.error);
+        window.backend.download(getOnSuccess, window.message.showError);
         window.pins.startMain();
       }
 
@@ -100,7 +99,7 @@
 
   window.drag = {
     getPin: getPinMain,
-    start: setToStart
+    setStart: setToStart
   };
 
 })();

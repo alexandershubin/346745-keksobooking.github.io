@@ -12,11 +12,11 @@
   var MAX_PINS = 5;
   var ESC_BUTTON = 27;
 
-  var OFFER_TYPES = {
-    palace: 'Дворец',
-    flat: 'Квартира',
-    house: 'Дом',
-    bungalo: 'Бунгало'
+  var OfferTypes = {
+    PALACE: 'Дворец',
+    FLAT: 'Квартира',
+    HOUSE: 'Дом',
+    BUNGALO: 'Бунгало'
   };
 
   var pinsContainer = document.querySelector('.map__pins');
@@ -37,9 +37,9 @@
     FLAT_HEIGHT: FLAT_HEIGHT,
     PIN_MAIN_RADIUS: PIN_MAIN_RADIUS,
     PIN_MAIN_HEIGHT: PIN_MAIN_HEIGHT,
-    OFFER_TYPES: OFFER_TYPES,
     MAX_PINS: MAX_PINS,
     ESC_BUTTON: ESC_BUTTON,
+    OfferTypes: OfferTypes,
     pinsContainer: pinsContainer,
     map: map,
     adForm: adForm,

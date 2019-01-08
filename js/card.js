@@ -1,8 +1,6 @@
 'use strict';
 (function () {
 
-  // Создаем DOM элемент обьявления
-
   var createCardElement = function (advert) {
     window.pins.deleteCard();
 
@@ -23,7 +21,7 @@
     offerTitle.textContent = advert.offer.title;
     offerAdress.textContent = advert.offer.address;
     offerPrice.textContent = advert.offer.price + ' ₽/ночь';
-    offerType.textContent = window.data.OFFER_TYPES[advert.offer.type];
+    offerType.textContent = window.data.OfferTypes[advert.offer.type];
     offerRooms.textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
     offerCheck.textContent = 'Заезд после ' + advert.offer.checkin + ' Выезд до ' + advert.offer.checkout;
     offerDescription.textContent = advert.offer.description;

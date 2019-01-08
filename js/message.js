@@ -9,7 +9,7 @@
     });
   };
 
-  var elementErrorMessage = function (message) {
+  var getErrorMessage = function (message) {
     var error = document.querySelector('#error').content.querySelector('.error');
     var errorElement = error.cloneNode(true);
     var errorMessage = error.querySelector('.error__message');
@@ -37,7 +37,7 @@
     }
   };
 
-  var elementSuccessMessage = function () {
+  var getSuccessMessage = function () {
     var success = document.querySelector('#success').content.querySelector('.success');
     var successElement = success.cloneNode(true);
     mainElement.appendChild(successElement);
@@ -53,15 +53,15 @@
     var modalSucces = document.querySelector('.success');
     if (modalSucces) {
       mainElement.removeChild(modalSucces);
-      document.removeEventListener('keydown', elementSuccessMessage);
-      document.removeEventListener('click', elementSuccessMessage);
+      document.removeEventListener('keydown', getSuccessMessage);
+      document.removeEventListener('click', getSuccessMessage);
       disableElements(fieldsetElements, true);
     }
   };
 
   window.message = {
-    error: elementErrorMessage,
-    success: elementSuccessMessage
+    showError: getErrorMessage,
+    showSuccess: getSuccessMessage
   };
 
 })();

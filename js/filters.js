@@ -5,18 +5,18 @@
 
   var PriceMap = {
     'low': {
-      start: 0,
-      end: 10000
+      START: 0,
+      END: 10000
     },
 
     'middle': {
-      start: 10000,
-      end: 50000
+      START: 10000,
+      END: 50000
     },
 
     'high': {
-      start: 50000,
-      end: Infinity
+      START: 50000,
+      END: Infinity
     }
   };
 
@@ -28,7 +28,7 @@
     },
 
     'housing-price': function (data, filter) {
-      return data.offer.price >= PriceMap[filter.value].start && data.offer.price < PriceMap[filter.value].end;
+      return data.offer.price >= PriceMap[filter.value].START && data.offer.price < PriceMap[filter.value].END;
     },
 
     'housing-rooms': function (data, filter) {
@@ -50,8 +50,8 @@
     }
   };
 
-  var filterData = function (data) {
-    return data.filter(function (item) {
+  var filterData = function (dates) {
+    return dates.filter(function (item) {
       return filtersElements.every(function (filter) {
         return (filter.value === 'any') ? true : filterRules[filter.id](item, filter);
       });
@@ -66,5 +66,6 @@
   });
 
   mapFiltersForm.addEventListener('change', onMapFiltersChange);
+  mapFiltersForm.removeEventListener('change', mapFiltersForm);
 
 })();
