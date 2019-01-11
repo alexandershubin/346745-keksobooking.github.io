@@ -50,11 +50,8 @@
       y: evt.clientY
     };
 
-    var dragged = false;
-
-    var onMouseMove = function (moveEvt) {
+    var mouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
-      dragged = true;
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -72,7 +69,7 @@
       getPinMain(window.data.PIN_MAIN_RADIUS, window.data.PIN_MAIN_HEIGHT);
     };
 
-    var onMouseUp = function (upEvt) {
+    var mouseUpHandler = function (upEvt) {
       if (window.form.deactivate) {
         window.backend.download(getOnSuccess, window.message.showError);
         window.pins.startMain();
@@ -80,21 +77,11 @@
 
       upEvt.preventDefault();
 
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-
-      if (dragged) {
-        var onClickPreventDefault = function () {
-          evt.preventDefault();
-          window.data.mapPin.removeEventListener('click', onClickPreventDefault);
-        };
-        window.data.mapPin.addEventListener('click', onClickPreventDefault);
-      }
-
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
     };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
   });
 
   window.drag = {

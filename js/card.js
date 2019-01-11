@@ -46,12 +46,19 @@
       offerPhotos.appendChild(img);
     }
 
-    closeButton.addEventListener('click', window.pins.deleteCard);
-    document.addEventListener('keydown', function (evt) {
+    var buttonClickHandler = function () {
+      window.pins.deleteCard();
+    };
+
+    var buttonKeydownHandler = function (evt) {
       if (evt.keyCode === window.data.ESC_BUTTON) {
         window.pins.deleteCard();
       }
-    });
+    };
+
+    closeButton.addEventListener('click', buttonClickHandler);
+    document.addEventListener('keydown', buttonKeydownHandler);
+
 
     return card;
   };
