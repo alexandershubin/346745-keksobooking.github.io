@@ -1,6 +1,8 @@
 'use strict';
 (function () {
 
+  var clickPin;
+
   var createPin = function (pin) {
     var element = window.data.templatePin.cloneNode(true);
     var pinImage = element.querySelector('img');
@@ -13,6 +15,13 @@
     var realIndex = window.data.advertArray.indexOf(pin);
 
     element.setAttribute('data-id', realIndex);
+
+    element.addEventListener('click', function () {
+      if (element) {
+        clickPin = element;
+        clickPin.classList.add('map__pin--active');
+      }
+    });
 
     return element;
   };
@@ -32,6 +41,13 @@
   var startActivMainPin = function () {
     window.data.map.classList.remove('map--faded');
     window.data.adForm.classList.remove('ad-form--disabled');
+    window.filter.activateListener();
+    window.form.activateRoomNumber();
+    window.form.activateTimeOut();
+    window.form.activatTimeIn();
+    window.form.activateFormAd();
+    window.form.activateResetButton();
+    window.form.setValidation();
 
     for (var i = 0; i < window.data.disabledElements.length; i++) {
       window.data.disabledElements[i].removeAttribute('disabled');
@@ -75,12 +91,17 @@
 
   fillFullAdress();
 
+  var resetClickedPin = function () {
+    clickPin.classList.remove('map__pin--active');
+  };
+
   window.pins = {
     deleteCard: deleteCurrentCard,
     startMain: startActivMainPin,
     render: renderPins,
     remove: removeAllPins,
-    fillAdress: fillFullAdress
+    fillAdress: fillFullAdress,
+    resetClickedPin: resetClickedPin
   };
 
 })();

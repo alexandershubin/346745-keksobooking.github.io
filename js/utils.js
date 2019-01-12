@@ -30,9 +30,9 @@
   };
 
   window.utils = {
-    getRandom: getRandomNumber,
-    getItem: getRandomItem,
-    getArrayLength: getRandomArrayLength,
+    getRandomNumber: getRandomNumber,
+    getRandomItem: getRandomItem,
+    getRandomArrayLength: getRandomArrayLength,
     debounce: debounce
   };
 

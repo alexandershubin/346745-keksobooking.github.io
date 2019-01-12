@@ -65,7 +65,17 @@
     window.pins.render(data);
   });
 
-  mapFiltersForm.addEventListener('change', onMapFiltersChange);
-  mapFiltersForm.removeEventListener('change', mapFiltersForm);
+  var addFilterListener = function () {
+    mapFiltersForm.addEventListener('change', onMapFiltersChange);
+  };
+
+  var removeFilterListener = function () {
+    mapFiltersForm.removeEventListener('change', onMapFiltersChange);
+  };
+
+  window.filter = {
+    activateListener: addFilterListener,
+    deactivateListener: removeFilterListener
+  };
 
 })();

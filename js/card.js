@@ -28,10 +28,11 @@
     offerAvatar.src = advert.author.avatar;
 
     offerFeatures.innerHTML = '';
+    var li = document.createElement('li');
+    var fragment = document.createDocumentFragment();
     for (var i = 0; i < advert.offer.features.length; i++) {
-      var li = document.createElement('li');
       li.className = 'popup__feature popup__feature--' + advert.offer.features[i];
-      offerFeatures.appendChild(li);
+      fragment.appendChild(li);
     }
 
     offerPhotos.innerHTML = '';
@@ -48,11 +49,13 @@
 
     var buttonClickHandler = function () {
       window.pins.deleteCard();
+      window.pins.resetClickedPin();
     };
 
     var buttonKeydownHandler = function (evt) {
       if (evt.keyCode === window.data.ESC_BUTTON) {
         window.pins.deleteCard();
+        window.pins.resetClickedPin();
       }
     };
 
