@@ -7,6 +7,20 @@
   var STATUS_OK = 200;
   var TIME_OK = 10000;
 
+  var ERRORS = {
+    timeoutError: function (timeout) {
+      return 'Запрос не успел выполниться за ' + timeout + ' мс';
+    },
+
+    failedConnectionErrorType: function (error) {
+      return 'Произошла ошибка ' + error;
+    },
+
+    failedConnectionError: function () {
+      return 'Ошибка соединения';
+    }
+  };
+
   var xhrRequest = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -15,18 +29,18 @@
       if (xhr.status === STATUS_OK) {
         onSuccess(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError(ERRORS.failedConnectionErrorType(xhr.status));
       }
     });
 
     xhr.timeout = TIME_OK;
 
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
+      onError(ERRORS.failedConnectionError());
     });
 
     xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
+      onError(ERRORS.timeoutError(xhr.timeout));
     });
 
     return xhr;

@@ -5,12 +5,12 @@
 
   var createPin = function (pin) {
     var element = window.data.templatePin.cloneNode(true);
-    var pinImage = element.querySelector('img');
+    var pinImageElement = element.querySelector('img');
 
     element.style.left = pin.location.x - window.data.FLAT_WIDTH / 2 + 'px';
     element.style.top = pin.location.y - window.data.FLAT_HEIGHT + 'px';
-    pinImage.src = pin.author.avatar;
-    pinImage.alt = pin.offer.title;
+    pinImageElement.src = pin.author.avatar;
+    pinImageElement.alt = pin.offer.title;
 
     var realIndex = window.data.advertArray.indexOf(pin);
 
@@ -55,9 +55,9 @@
   };
 
   var addClickHandlersToPins = function () {
-    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var j = 0; j < allPins.length; j++) {
-      allPins[j].addEventListener('click', function (evt) {
+    var allPinsElements = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var j = 0; j < allPinsElements.length; j++) {
+      allPinsElements[j].addEventListener('click', function (evt) {
         var dataId = evt.currentTarget.getAttribute('data-id');
         window.data.map.insertBefore(window.card.createElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
       });
@@ -65,10 +65,10 @@
   };
 
   var removeAllPins = function () {
-    var mapPins = document.querySelectorAll('.map__pin');
-    for (var i = 0; i < mapPins.length; i++) {
-      if (!mapPins[i].classList.contains('map__pin--main')) {
-        window.data.pinsContainer.removeChild(mapPins[i]);
+    var mapPinsElements = document.querySelectorAll('.map__pin');
+    for (var i = 0; i < mapPinsElements.length; i++) {
+      if (!mapPinsElements[i].classList.contains('map__pin--main')) {
+        window.data.pinsContainer.removeChild(mapPinsElements[i]);
       }
     }
   };
@@ -82,9 +82,9 @@
   };
 
   var deleteCurrentCard = function () {
-    var card = document.querySelector('.map__card');
-    if (card) {
-      card.remove();
+    var cardElement = document.querySelector('.map__card');
+    if (cardElement) {
+      cardElement.remove();
     }
     document.removeEventListener('keydown', deleteCurrentCard);
   };

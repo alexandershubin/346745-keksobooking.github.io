@@ -19,14 +19,14 @@
     BUNGALO: 'Бунгало'
   };
 
-  var pinsContainer = document.querySelector('.map__pins');
-  var map = document.querySelector('.map');
-  var adForm = document.querySelector('.ad-form');
-  var address = document.querySelector('#address');
-  var mapPin = document.querySelector('.map__pin--main');
+  var pinsContainerElement = document.querySelector('.map__pins');
+  var mapElement = document.querySelector('.map');
+  var adFormElement = document.querySelector('.ad-form');
+  var addressElement = document.querySelector('#address');
+  var mapPinElement = document.querySelector('.map__pin--main');
   var disabledElements = document.querySelectorAll('[disabled]');
-  var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
-  var templateCard = document.querySelector('#card').content.querySelector('.map__card');
+  var templatePinElement = document.querySelector('#pin').content.querySelector('.map__pin');
+  var templateCardElement = document.querySelector('#card').content.querySelector('.map__card');
 
   window.data = {
     MIN_Y: MIN_Y,
@@ -40,14 +40,14 @@
     MAX_PINS: MAX_PINS,
     ESC_BUTTON: ESC_BUTTON,
     OfferTypes: OfferTypes,
-    pinsContainer: pinsContainer,
-    map: map,
-    adForm: adForm,
-    address: address,
-    mapPin: mapPin,
+    pinsContainer: pinsContainerElement,
+    map: mapElement,
+    adForm: adFormElement,
+    address: addressElement,
+    mapPin: mapPinElement,
     disabledElements: disabledElements,
-    templatePin: templatePin,
-    templateCard: templateCard,
+    templatePin: templatePinElement,
+    templateCard: templateCardElement,
     advertArray: []
   };
 

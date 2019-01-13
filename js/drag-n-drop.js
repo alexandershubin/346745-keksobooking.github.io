@@ -1,40 +1,11 @@
 'use strict';
 (function () {
 
-  var MAIN_PIN_START_LEFT = '570px';
-  var MAIN_PIN_START_TOP = '375px';
+  var mapWidth = document.querySelector('.map').offsetWidth;
 
-  var setToStart = function () {
-    window.data.mapPin.style.left = MAIN_PIN_START_LEFT;
-    window.data.mapPin.style.top = MAIN_PIN_START_TOP;
-  };
-
-  var getX = function () {
-    var x = window.data.mapPin.offsetLeft;
-    if (x < window.data.MIN_X) {
-      x = window.data.MIN_X;
-    }
-    if (x > window.data.MAX_X - window.data.PIN_MAIN_RADIUS * 2) {
-      x = window.data.MAX_X - window.data.PIN_MAIN_RADIUS * 2;
-    }
-    return x;
-  };
-
-  var getY = function () {
-    var y = window.data.mapPin.offsetTop;
-    if (y < window.data.MIN_Y) {
-      y = window.data.MIN_Y;
-    }
-    if (y > window.data.MAX_Y) {
-      y = window.data.MAX_Y;
-    }
-    return y;
-  };
-
-  var getPinMain = function (width, height) {
-    var pinMainX = getX() + width;
-    var pinMainY = getY() + height;
-    window.data.address.value = pinMainX + ', ' + pinMainY;
+  var CoordsY = {
+    MIN: 130,
+    MAX: 630
   };
 
   var getOnSuccess = function (data) {
@@ -50,7 +21,7 @@
       y: evt.clientY
     };
 
-    var mouseMoveHandler = function (moveEvt) {
+    var onPinMainMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
       var shift = {
@@ -63,13 +34,26 @@
         y: moveEvt.clientY
       };
 
-      window.data.mapPin.style.left = (getX() - shift.x) + 'px';
-      window.data.mapPin.style.top = (getY() - shift.y) + 'px';
+      var top = window.data.mapPin.offsetTop - shift.y;
+      var left = window.data.mapPin.offsetLeft - shift.x;
 
-      getPinMain(window.data.PIN_MAIN_RADIUS, window.data.PIN_MAIN_HEIGHT);
+      if (left < 0) {
+        left = 0;
+      } else if (left > mapWidth - window.data.mapPin.offsetWidth) {
+        left = mapWidth - window.data.mapPin.offsetWidth;
+      }
+
+      top = Math.min(top, CoordsY.MAX - window.data.mapPin.offsetHeight);
+      top = Math.max(top, CoordsY.MIN - window.data.mapPin.offsetHeight);
+
+      window.data.mapPin.style.left = left + 'px';
+      window.data.mapPin.style.top = top + 'px';
+
+      window.data.address.value = Math.floor(window.data.mapPin.offsetLeft + window.data.mapPin.offsetWidth / 2) + ', ' + Math.floor(window.data.mapPin.offsetTop + window.data.mapPin.offsetHeight);
+
     };
 
-    var mouseUpHandler = function (upEvt) {
+    var onPinMainMouseUp = function (upEvt) {
       if (window.form.deactivate) {
         window.backend.download(getOnSuccess, window.message.showError);
         window.pins.startMain();
@@ -77,16 +61,11 @@
 
       upEvt.preventDefault();
 
-      document.removeEventListener('mousemove', mouseMoveHandler);
-      document.removeEventListener('mouseup', mouseUpHandler);
+      document.removeEventListener('mousemove', onPinMainMouseMove);
+      document.removeEventListener('mouseup', onPinMainMouseUp);
     };
-    document.addEventListener('mousemove', mouseMoveHandler);
-    document.addEventListener('mouseup', mouseUpHandler);
+    document.addEventListener('mousemove', onPinMainMouseMove);
+    document.addEventListener('mouseup', onPinMainMouseUp);
   });
-
-  window.drag = {
-    getPin: getPinMain,
-    setStart: setToStart
-  };
 
 })();

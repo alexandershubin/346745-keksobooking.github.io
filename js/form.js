@@ -8,19 +8,25 @@
     '100': ['0']
   };
 
-  var roomNumber = document.querySelector('#room_number');
-  var capacity = document.querySelector('#capacity');
-  var timeIn = document.querySelector('#timein');
-  var timeOut = document.querySelector('#timeout');
-  var formType = document.querySelector('#type');
-  var formPrice = document.querySelector('#price');
-  var resetButton = document.querySelector('.ad-form__reset');
+  var mapPinStartCoords = {
+    X: 570,
+    Y: 375
+  };
+
+  var addressFieldTailValue = Math.floor(window.data.mapPin.offsetLeft + window.data.mapPin.offsetWidth / 2) + ', ' + Math.floor(window.data.mapPin.offsetTop + window.data.mapPin.offsetHeight);
+  var roomNumberElement = document.querySelector('#room_number');
+  var capacityElement = document.querySelector('#capacity');
+  var timeInElement = document.querySelector('#timein');
+  var timeOutElement = document.querySelector('#timeout');
+  var formTypeElement = document.querySelector('#type');
+  var formPriceElement = document.querySelector('#price');
+  var resetButtonElement = document.querySelector('.ad-form__reset');
 
   var onRoomNumberChahge = function () {
-    if (capacity.options.length > 0) {
-      [].forEach.call(capacity.options, function (item) {
-        item.selected = (ROOMS_CAPACITY[roomNumber.value][0] === item.value);
-        item.hidden = !(ROOMS_CAPACITY[roomNumber.value].indexOf(item.value) >= 0);
+    if (capacityElement.options.length > 0) {
+      [].forEach.call(capacityElement.options, function (item) {
+        item.selected = (ROOMS_CAPACITY[roomNumberElement.value][0] === item.value);
+        item.hidden = !(ROOMS_CAPACITY[roomNumberElement.value].indexOf(item.value) >= 0);
       });
     }
   };
@@ -28,35 +34,35 @@
   onRoomNumberChahge();
 
   var addRoomNumberListener = function () {
-    roomNumber.addEventListener('change', onRoomNumberChahge);
+    roomNumberElement.addEventListener('change', onRoomNumberChahge);
   };
 
   var removeRoomNumberListener = function () {
-    roomNumber.removeEventListener('change', onRoomNumberChahge);
+    roomNumberElement.removeEventListener('change', onRoomNumberChahge);
   };
 
   var onTimeInChange = function () {
-    timeOut.selectedIndex = timeIn.selectedIndex;
+    timeOutElement.selectedIndex = timeInElement.selectedIndex;
   };
 
   var addTimeInListener = function () {
-    timeIn.addEventListener('change', onTimeInChange);
+    timeInElement.addEventListener('change', onTimeInChange);
   };
 
   var removeTimeInListener = function () {
-    timeIn.removeEventListener('change', onTimeInChange);
+    timeInElement.removeEventListener('change', onTimeInChange);
   };
 
   var onTimeOutChange = function () {
-    timeIn.selectedIndex = timeOut.selectedIndex;
+    timeInElement.selectedIndex = timeOutElement.selectedIndex;
   };
 
   var addTimeOutListener = function () {
-    timeOut.addEventListener('change', onTimeOutChange);
+    timeOutElement.addEventListener('change', onTimeOutChange);
   };
 
   var removeTimeOutListener = function () {
-    timeOut.removeEventListener('change', onTimeOutChange);
+    timeOutElement.removeEventListener('change', onTimeOutChange);
   };
 
   var TypeFlat = {
@@ -75,19 +81,19 @@
   };
 
   var onTypeFlatChange = function () {
-    var type = formType.value;
+    var type = formTypeElement.value;
     var PRICE = TypeFlat[type].PRICE;
 
-    formPrice.placeholder = PRICE;
-    formPrice.min = PRICE;
+    formPriceElement.placeholder = PRICE;
+    formPriceElement.min = PRICE;
   };
 
   var setValidation = function () {
-    formType.addEventListener('input', onTypeFlatChange);
+    formTypeElement.addEventListener('input', onTypeFlatChange);
   };
 
   var deleteValidation = function () {
-    formType.removeEventListener('input', onTypeFlatChange);
+    formTypeElement.removeEventListener('input', onTypeFlatChange);
   };
 
 
@@ -108,11 +114,20 @@
 
   };
 
+  window.data.address.value = addressFieldTailValue;
+  window.data.address.readOnly = true;
+
+  var setToStart = function () {
+    window.data.mapPin.style.left = mapPinStartCoords.X + 'px';
+    window.data.mapPin.style.top = mapPinStartCoords.Y + 'px';
+  };
+
   var onFormSubmit = function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(window.data.adForm), window.message.showError, window.message.showSuccess);
     window.pins.startMain();
-    window.drag.setStart();
+    setToStart();
+    window.data.address.value = addressFieldTailValue;
     deactivateMap();
   };
 
@@ -127,16 +142,17 @@
   var onResetButtonClick = function (evt) {
     evt.preventDefault();
     window.pins.startMain();
-    window.drag.setStart();
+    setToStart();
+    window.data.address.value = addressFieldTailValue;
     deactivateMap();
   };
 
   var addResetButtonListener = function () {
-    resetButton.addEventListener('click', onResetButtonClick);
+    resetButtonElement.addEventListener('click', onResetButtonClick);
   };
 
   var removeResetButtonListener = function () {
-    resetButton.removeEventListener('click', onResetButtonClick);
+    resetButtonElement.removeEventListener('click', onResetButtonClick);
   };
 
 

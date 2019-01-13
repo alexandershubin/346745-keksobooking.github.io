@@ -1,7 +1,8 @@
 'use strict';
 (function () {
 
-  var mapFiltersForm = document.querySelector('.map__filters');
+  var ANY_VALUE = 'any';
+  var mapFiltersFormElement = document.querySelector('.map__filters');
 
   var PriceMap = {
     'low': {
@@ -20,7 +21,7 @@
     }
   };
 
-  var filtersElements = Array.from(mapFiltersForm.children);
+  var filtersElements = Array.from(mapFiltersFormElement.children);
 
   var filterRules = {
     'housing-type': function (data, filter) {
@@ -53,7 +54,7 @@
   var filterData = function (dates) {
     return dates.filter(function (item) {
       return filtersElements.every(function (filter) {
-        return (filter.value === 'any') ? true : filterRules[filter.id](item, filter);
+        return (filter.value === ANY_VALUE) ? true : filterRules[filter.id](item, filter);
       });
     });
   };
@@ -66,11 +67,11 @@
   });
 
   var addFilterListener = function () {
-    mapFiltersForm.addEventListener('change', onMapFiltersChange);
+    mapFiltersFormElement.addEventListener('change', onMapFiltersChange);
   };
 
   var removeFilterListener = function () {
-    mapFiltersForm.removeEventListener('change', onMapFiltersChange);
+    mapFiltersFormElement.removeEventListener('change', onMapFiltersChange);
   };
 
   window.filter = {

@@ -6,28 +6,28 @@
 
     var card = window.data.templateCard.cloneNode(true);
 
-    var offerTitle = card.querySelector('.popup__title');
-    var offerAdress = card.querySelector('.popup__text--address');
-    var offerPrice = card.querySelector('.popup__text--price');
-    var offerType = card.querySelector('.popup__type');
-    var offerRooms = card.querySelector('.popup__text--capacity');
-    var offerCheck = card.querySelector('.popup__text--time');
-    var offerFeatures = card.querySelector('.popup__features');
-    var offerDescription = card.querySelector('.popup__description');
-    var offerPhotos = card.querySelector('.popup__photos');
-    var offerAvatar = card.querySelector('.popup__avatar');
-    var closeButton = card.querySelector('.popup__close');
+    var offerTitleElement = card.querySelector('.popup__title');
+    var offerAdressElement = card.querySelector('.popup__text--address');
+    var offerPriceElement = card.querySelector('.popup__text--price');
+    var offerTypeElement = card.querySelector('.popup__type');
+    var offerRoomsElement = card.querySelector('.popup__text--capacity');
+    var offerCheckElement = card.querySelector('.popup__text--time');
+    var offerFeaturesElement = card.querySelector('.popup__features');
+    var offerDescriptionElement = card.querySelector('.popup__description');
+    var offerPhotosElement = card.querySelector('.popup__photos');
+    var offerAvatarElement = card.querySelector('.popup__avatar');
+    var closeButtonElement = card.querySelector('.popup__close');
 
-    offerTitle.textContent = advert.offer.title;
-    offerAdress.textContent = advert.offer.address;
-    offerPrice.textContent = advert.offer.price + ' ₽/ночь';
-    offerType.textContent = window.data.OfferTypes[advert.offer.type];
-    offerRooms.textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
-    offerCheck.textContent = 'Заезд после ' + advert.offer.checkin + ' Выезд до ' + advert.offer.checkout;
-    offerDescription.textContent = advert.offer.description;
-    offerAvatar.src = advert.author.avatar;
+    offerTitleElement.textContent = advert.offer.title;
+    offerAdressElement.textContent = advert.offer.address;
+    offerPriceElement.textContent = advert.offer.price + ' ₽/ночь';
+    offerTypeElement.textContent = window.data.OfferTypes[advert.offer.type];
+    offerRoomsElement.textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
+    offerCheckElement.textContent = 'Заезд после ' + advert.offer.checkin + ' Выезд до ' + advert.offer.checkout;
+    offerDescriptionElement.textContent = advert.offer.description;
+    offerAvatarElement.src = advert.author.avatar;
 
-    offerFeatures.innerHTML = '';
+    offerFeaturesElement.innerHTML = '';
     var li = document.createElement('li');
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < advert.offer.features.length; i++) {
@@ -35,7 +35,7 @@
       fragment.appendChild(li);
     }
 
-    offerPhotos.innerHTML = '';
+    offerPhotosElement.innerHTML = '';
 
     for (var j = 0; j < advert.offer.photos.length; j++) {
       var img = document.createElement('img');
@@ -44,23 +44,23 @@
       img.width = 45;
       img.height = 40;
       img.alt = 'Фотография жилья';
-      offerPhotos.appendChild(img);
+      offerPhotosElement.appendChild(img);
     }
 
-    var buttonClickHandler = function () {
+    var onPinCloseButtonClick = function () {
       window.pins.deleteCard();
       window.pins.resetClickedPin();
     };
 
-    var buttonKeydownHandler = function (evt) {
+    var onPinCloseButtonKeydown = function (evt) {
       if (evt.keyCode === window.data.ESC_BUTTON) {
         window.pins.deleteCard();
         window.pins.resetClickedPin();
       }
     };
 
-    closeButton.addEventListener('click', buttonClickHandler);
-    document.addEventListener('keydown', buttonKeydownHandler);
+    closeButtonElement.addEventListener('click', onPinCloseButtonClick);
+    document.addEventListener('keydown', onPinCloseButtonKeydown);
 
 
     return card;
