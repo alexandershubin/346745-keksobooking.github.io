@@ -13,7 +13,6 @@
     Y: 375
   };
 
-  var addressFieldTailValue = Math.floor(window.data.mapPin.offsetLeft + window.data.mapPin.offsetWidth / 2) + ', ' + Math.floor(window.data.mapPin.offsetTop + window.data.mapPin.offsetHeight);
   var roomNumberElement = document.querySelector('#room_number');
   var capacityElement = document.querySelector('#capacity');
   var timeInElement = document.querySelector('#timein');
@@ -103,7 +102,6 @@
     window.data.map.classList.add('map--faded');
     window.pins.remove();
     window.pins.deleteCard();
-    window.pins.fillAdress();
     window.filter.deactivateListener();
     removeRoomNumberListener();
     removeTimeOutListener();
@@ -111,11 +109,8 @@
     removeFormAdListener();
     removeResetButtonListener();
     deleteValidation();
-
+    window.pins.fillAdress();
   };
-
-  window.data.address.value = addressFieldTailValue;
-  window.data.address.readOnly = true;
 
   var setToStart = function () {
     window.data.mapPin.style.left = mapPinStartCoords.X + 'px';
@@ -127,7 +122,6 @@
     window.backend.upload(new FormData(window.data.adForm), window.message.showError, window.message.showSuccess);
     window.pins.startMain();
     setToStart();
-    window.data.address.value = addressFieldTailValue;
     deactivateMap();
   };
 
@@ -143,7 +137,6 @@
     evt.preventDefault();
     window.pins.startMain();
     setToStart();
-    window.data.address.value = addressFieldTailValue;
     deactivateMap();
   };
 
@@ -163,7 +156,8 @@
     activatTimeIn: addTimeInListener,
     activateFormAd: addFormAdListener,
     activateResetButton: addResetButtonListener,
-    setValidation: setValidation
+    setValidation: setValidation,
+    mapPinStartCoords: mapPinStartCoords
   };
 
 })();

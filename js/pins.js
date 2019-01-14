@@ -89,11 +89,11 @@
     document.removeEventListener('keydown', deleteCurrentCard);
   };
 
-  fillFullAdress();
-
   var resetClickedPin = function () {
     clickPin.classList.remove('map__pin--active');
   };
+
+  fillFullAdress();
 
   window.pins = {
     deleteCard: deleteCurrentCard,

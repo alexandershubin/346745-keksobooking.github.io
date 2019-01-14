@@ -57,6 +57,7 @@
       if (window.form.deactivate) {
         window.backend.download(getOnSuccess, window.message.showError);
         window.pins.startMain();
+        window.pins.fillAdress();
       }
 
       upEvt.preventDefault();
