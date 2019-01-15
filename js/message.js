@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+
   var mainElement = document.querySelector('main');
   var fieldsetElements = document.querySelectorAll('fieldset');
 
@@ -9,59 +10,60 @@
     });
   };
 
-  var elementErrorMessage = function (message) {
-    var error = document.querySelector('#error').content.querySelector('.error');
-    var errorElement = error.cloneNode(true);
-    var errorMessage = error.querySelector('.error__message');
-    var errorButton = error.querySelector('.error__button');
-
-    errorMessage.textContent = message;
-
-    mainElement.appendChild(errorElement);
+  var showSuccessMessage = function () {
+    var successElement = document.querySelector('#success').content.querySelector('.success');
+    var successMessage = successElement.cloneNode(true);
+    mainElement.appendChild(successMessage);
     document.addEventListener('keydown', function (evt) {
       if (evt.keyCode === window.data.ESC_BUTTON) {
-        closeErrorMessage();
+        onMapCloseMessageClick();
       }
     });
-    errorElement.addEventListener('click', closeErrorMessage);
-    errorButton.addEventListener('click', closeErrorMessage);
+    successMessage.addEventListener('click', onMapCloseMessageClick);
   };
 
-  var closeErrorMessage = function () {
-    var modalError = document.querySelector('.error');
-    if (modalError) {
-      mainElement.removeChild(modalError);
-      document.removeEventListener('keydown', closeErrorMessage);
-      modalError.removeEventListener('click', closeErrorMessage);
+  var onMapCloseMessageClick = function () {
+    var modalSuccesElement = document.querySelector('.success');
+    if (modalSuccesElement) {
+      mainElement.removeChild(modalSuccesElement);
+      document.removeEventListener('keydown', showSuccessMessage);
+      document.removeEventListener('click', showSuccessMessage);
       disableElements(fieldsetElements, true);
     }
   };
 
-  var elementSuccessMessage = function () {
-    var success = document.querySelector('#success').content.querySelector('.success');
-    var successElement = success.cloneNode(true);
-    mainElement.appendChild(successElement);
+  var showErrorMessage = function (message) {
+    var errorElement = document.querySelector('#error').content.querySelector('.error');
+    var errorMessage = errorElement.cloneNode(true);
+
+    errorMessage.querySelector('.error__message').textContent = message;
+
+    mainElement.appendChild(errorMessage);
+    errorMessage.addEventListener('click', function () {
+      onMapErrorMessageClick();
+    });
+
     document.addEventListener('keydown', function (evt) {
       if (evt.keyCode === window.data.ESC_BUTTON) {
-        closeSuccessMessage();
+        onMapErrorMessageClick();
       }
     });
-    successElement.addEventListener('click', closeSuccessMessage);
   };
 
-  var closeSuccessMessage = function () {
-    var modalSucces = document.querySelector('.success');
-    if (modalSucces) {
-      mainElement.removeChild(modalSucces);
-      document.removeEventListener('keydown', elementSuccessMessage);
-      document.removeEventListener('click', elementSuccessMessage);
+  var onMapErrorMessageClick = function () {
+    var modalErrorElement = document.querySelector('.error');
+    if (modalErrorElement) {
+      mainElement.removeChild(modalErrorElement);
+      document.removeEventListener('keydown', onMapErrorMessageClick);
+      modalErrorElement.removeEventListener('click', onMapErrorMessageClick);
       disableElements(fieldsetElements, true);
     }
   };
 
   window.message = {
-    error: elementErrorMessage,
-    success: elementSuccessMessage
+    showError: showErrorMessage,
+    showSuccess: showSuccessMessage
   };
 
 })();
+

@@ -1,26 +1,27 @@
 'use strict';
 (function () {
 
-  var mapFiltersForm = document.querySelector('.map__filters');
+  var ANY_VALUE = 'any';
+  var mapFiltersFormElement = document.querySelector('.map__filters');
 
   var PriceMap = {
     'low': {
-      start: 0,
-      end: 10000
+      START: 0,
+      END: 10000
     },
 
     'middle': {
-      start: 10000,
-      end: 50000
+      START: 10000,
+      END: 50000
     },
 
     'high': {
-      start: 50000,
-      end: Infinity
+      START: 50000,
+      END: Infinity
     }
   };
 
-  var filtersElements = Array.from(mapFiltersForm.children);
+  var filtersElements = Array.from(mapFiltersFormElement.children);
 
   var filterRules = {
     'housing-type': function (data, filter) {
@@ -28,7 +29,7 @@
     },
 
     'housing-price': function (data, filter) {
-      return data.offer.price >= PriceMap[filter.value].start && data.offer.price < PriceMap[filter.value].end;
+      return data.offer.price >= PriceMap[filter.value].START && data.offer.price < PriceMap[filter.value].END;
     },
 
     'housing-rooms': function (data, filter) {
@@ -50,10 +51,10 @@
     }
   };
 
-  var filterData = function (data) {
-    return data.filter(function (item) {
+  var filterData = function (dates) {
+    return dates.filter(function (item) {
       return filtersElements.every(function (filter) {
-        return (filter.value === 'any') ? true : filterRules[filter.id](item, filter);
+        return (filter.value === ANY_VALUE) ? true : filterRules[filter.id](item, filter);
       });
     });
   };
@@ -65,6 +66,17 @@
     window.pins.render(data);
   });
 
-  mapFiltersForm.addEventListener('change', onMapFiltersChange);
+  var addFilterListener = function () {
+    mapFiltersFormElement.addEventListener('change', onMapFiltersChange);
+  };
+
+  var removeFilterListener = function () {
+    mapFiltersFormElement.removeEventListener('change', onMapFiltersChange);
+  };
+
+  window.filter = {
+    activateListener: addFilterListener,
+    deactivateListener: removeFilterListener
+  };
 
 })();

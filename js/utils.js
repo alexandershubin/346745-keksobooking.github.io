@@ -3,22 +3,19 @@
 
   var DEBOUNCE_INTERVAL = 500;
 
-  // Получить случайный номер
   var getRandomNumber = function (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
-  // Получить случайный элемент массива
   var getRandomItem = function (arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   };
 
-  // Получить случайную часть массива
   var getRandomArrayLength = function (arr) {
     return arr.slice(Math.floor(Math.random() * arr.length));
   };
 
-  var getDebounce = function (cb) {
+  var debounce = function (cb) {
     var lastTimeout = null;
 
     return function () {
@@ -33,10 +30,10 @@
   };
 
   window.utils = {
-    Random: getRandomNumber,
-    Item: getRandomItem,
-    ArrayLength: getRandomArrayLength,
-    debounce: getDebounce
+    getRandomNumber: getRandomNumber,
+    getRandomItem: getRandomItem,
+    getRandomArrayLength: getRandomArrayLength,
+    debounce: debounce
   };
 
 })();

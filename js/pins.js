@@ -1,24 +1,31 @@
 'use strict';
 (function () {
 
-  // Создаём метки
+  var clickPin;
+
   var createPin = function (pin) {
     var element = window.data.templatePin.cloneNode(true);
-    var pinImage = element.querySelector('img');
+    var pinImageElement = element.querySelector('img');
 
     element.style.left = pin.location.x - window.data.FLAT_WIDTH / 2 + 'px';
     element.style.top = pin.location.y - window.data.FLAT_HEIGHT + 'px';
-    pinImage.src = pin.author.avatar;
-    pinImage.alt = pin.offer.title;
+    pinImageElement.src = pin.author.avatar;
+    pinImageElement.alt = pin.offer.title;
 
     var realIndex = window.data.advertArray.indexOf(pin);
 
     element.setAttribute('data-id', realIndex);
 
+    element.addEventListener('click', function () {
+      if (element) {
+        clickPin = element;
+        clickPin.classList.add('map__pin--active');
+      }
+    });
+
     return element;
   };
 
-  // Отрисовываем сгенерированые DOM-элементы в блок .map__pins
   var renderPins = function (pins) {
     var fragment = document.createDocumentFragment();
     var cuttedArray = pins.slice(0, window.data.MAX_PINS);
@@ -31,39 +38,42 @@
     addClickHandlersToPins();
   };
 
-
-  // Обработчик клика по пину
   var startActivMainPin = function () {
     window.data.map.classList.remove('map--faded');
     window.data.adForm.classList.remove('ad-form--disabled');
+    window.filter.activateListener();
+    window.form.activateRoomNumber();
+    window.form.activateTimeOut();
+    window.form.activatTimeIn();
+    window.form.activateFormAd();
+    window.form.activateResetButton();
+    window.form.setValidation();
 
     for (var i = 0; i < window.data.disabledElements.length; i++) {
       window.data.disabledElements[i].removeAttribute('disabled');
     }
   };
 
-  // Добавить обработчики к пинам
   var addClickHandlersToPins = function () {
-    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var j = 0; j < allPins.length; j++) {
-      allPins[j].addEventListener('click', function (evt) {
+    var allPinsElements = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var j = 0; j < allPinsElements.length; j++) {
+      allPinsElements[j].addEventListener('click', function (evt) {
         var dataId = evt.currentTarget.getAttribute('data-id');
         window.data.map.insertBefore(window.card.createElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
+        clickPin.classList.add('map__pin--active');
       });
     }
   };
 
-  // Удаляет пины с карты
   var removeAllPins = function () {
-    var mapPins = document.querySelectorAll('.map__pin');
-    for (var i = 0; i < mapPins.length; i++) {
-      if (!mapPins[i].classList.contains('map__pin--main')) {
-        window.data.pinsContainer.removeChild(mapPins[i]);
+    var mapPinsElements = document.querySelectorAll('.map__pin');
+    for (var i = 0; i < mapPinsElements.length; i++) {
+      if (!mapPinsElements[i].classList.contains('map__pin--main')) {
+        window.data.pinsContainer.removeChild(mapPinsElements[i]);
       }
     }
   };
 
-  // Заполнить адрес
   var fillFullAdress = function () {
     var left = window.data.mapPin.offsetLeft - window.data.FLAT_WIDTH / 2;
     var top = window.data.mapPin.offsetTop - window.data.FLAT_WIDTH / 2;
@@ -72,14 +82,20 @@
     window.data.address.readOnly = true;
   };
 
-
-  // Удаляем прошлую карточку
   var deleteCurrentCard = function () {
-    var card = document.querySelector('.map__card');
-    if (card) {
-      card.remove();
+    var cardElement = document.querySelector('.map__card');
+    if (cardElement) {
+      cardElement.remove();
+      resetClickedPin();
     }
     document.removeEventListener('keydown', deleteCurrentCard);
+  };
+
+  var resetClickedPin = function () {
+    var activePin = document.querySelectorAll('.map__pin--active');
+    activePin.forEach(function (pin) {
+      pin.classList.remove('map__pin--active');
+    });
   };
 
   fillFullAdress();
@@ -89,7 +105,8 @@
     startMain: startActivMainPin,
     render: renderPins,
     remove: removeAllPins,
-    fillAdress: fillFullAdress
+    fillAdress: fillFullAdress,
+    resetClickedPin: resetClickedPin
   };
 
 })();
