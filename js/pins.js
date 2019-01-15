@@ -60,6 +60,7 @@
       allPinsElements[j].addEventListener('click', function (evt) {
         var dataId = evt.currentTarget.getAttribute('data-id');
         window.data.map.insertBefore(window.card.createElement(window.data.advertArray[dataId]), window.data.map.querySelector('.map__filters-container'));
+        clickPin.classList.add('map__pin--active');
       });
     }
   };
@@ -85,12 +86,16 @@
     var cardElement = document.querySelector('.map__card');
     if (cardElement) {
       cardElement.remove();
+      resetClickedPin();
     }
     document.removeEventListener('keydown', deleteCurrentCard);
   };
 
   var resetClickedPin = function () {
-    clickPin.classList.remove('map__pin--active');
+    var activePin = document.querySelectorAll('.map__pin--active');
+    activePin.forEach(function (pin) {
+      pin.classList.remove('map__pin--active');
+    });
   };
 
   fillFullAdress();

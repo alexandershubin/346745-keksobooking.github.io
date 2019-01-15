@@ -49,13 +49,11 @@
 
     var onPinCloseButtonClick = function () {
       window.pins.deleteCard();
-      window.pins.resetClickedPin();
     };
 
     var onPinCloseButtonKeydown = function (evt) {
       if (evt.keyCode === window.data.ESC_BUTTON) {
         window.pins.deleteCard();
-        window.pins.resetClickedPin();
       }
     };
 
