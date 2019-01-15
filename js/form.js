@@ -95,7 +95,6 @@
     formTypeElement.removeEventListener('input', onTypeFlatChange);
   };
 
-
   var deactivateMap = function () {
     window.data.adForm.reset();
     window.data.adForm.classList.add('ad-form--disabled');
@@ -147,7 +146,6 @@
   var removeResetButtonListener = function () {
     resetButtonElement.removeEventListener('click', onResetButtonClick);
   };
-
 
   window.form = {
     activateRoomNumber: addRoomNumberListener,

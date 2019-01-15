@@ -39,10 +39,10 @@
 
     for (var j = 0; j < advert.offer.photos.length; j++) {
       var img = document.createElement('img');
-      img.className = 'popup__photo';
+      img.classList.add('popup__photo');
       img.src = advert.offer.photos[j];
-      img.width = 45;
-      img.height = 40;
+      img.width = window.data.IMG_WIDTH;
+      img.height = window.data.IMG_HEIGHT;
       img.alt = 'Фотография жилья';
       offerPhotosElement.appendChild(img);
     }
@@ -61,7 +61,6 @@
 
     closeButtonElement.addEventListener('click', onPinCloseButtonClick);
     document.addEventListener('keydown', onPinCloseButtonKeydown);
-
 
     return card;
   };
