@@ -5,17 +5,17 @@
   var mapFiltersFormElement = document.querySelector('.map__filters');
 
   var PriceMap = {
-    'low': {
+    LOW: {
       START: 0,
       END: 10000
     },
 
-    'middle': {
+    MIDDLE: {
       START: 10000,
       END: 50000
     },
 
-    'high': {
+    HIGH: {
       START: 50000,
       END: Infinity
     }
@@ -29,7 +29,7 @@
     },
 
     'housing-price': function (data, filter) {
-      return data.offer.price >= PriceMap[filter.value].START && data.offer.price < PriceMap[filter.value].END;
+      return data.offer.price >= PriceMap[filter.value.toUpperCase()].START && data.offer.price < PriceMap[filter.value.toUpperCase()].END;
     },
 
     'housing-rooms': function (data, filter) {
