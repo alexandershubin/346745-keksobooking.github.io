@@ -82,14 +82,14 @@
     window.data.address.readOnly = true;
   };
 
-  var deleteCurrentCard = function () {
+  var onDeleteCurrentCardKeydown = function () {
     var cardElement = document.querySelector('.map__card');
     if (cardElement) {
       cardElement.remove();
       resetClickedPin();
       window.pins.fillAdress();
     }
-    document.removeEventListener('keydown', deleteCurrentCard);
+    document.removeEventListener('keydown', onDeleteCurrentCardKeydown);
   };
 
   var resetClickedPin = function () {
@@ -102,7 +102,7 @@
   fillFullAdress();
 
   window.pins = {
-    deleteCard: deleteCurrentCard,
+    deleteCard: onDeleteCurrentCardKeydown,
     startMain: startActivMainPin,
     render: renderPins,
     remove: removeAllPins,
