@@ -87,6 +87,7 @@
     if (cardElement) {
       cardElement.remove();
       resetClickedPin();
+      window.pins.fillAdress();
     }
     document.removeEventListener('keydown', deleteCurrentCard);
   };
