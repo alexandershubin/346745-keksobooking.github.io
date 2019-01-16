@@ -1,8 +1,6 @@
 'use strict';
 (function () {
 
-  var mapWidth = document.querySelector('.map').offsetWidth;
-
   var CoordsY = {
     MIN: 130,
     MAX: 630
@@ -36,12 +34,6 @@
 
       var top = window.data.mapPin.offsetTop - shift.y;
       var left = window.data.mapPin.offsetLeft - shift.x;
-
-      if (left < 0) {
-        left = 0;
-      } else if (left > mapWidth - window.data.mapPin.offsetWidth) {
-        left = mapWidth - window.data.mapPin.offsetWidth;
-      }
 
       top = Math.min(top, CoordsY.MAX - window.data.mapPin.offsetHeight);
       top = Math.max(top, CoordsY.MIN - window.data.mapPin.offsetHeight);

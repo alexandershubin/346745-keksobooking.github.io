@@ -31,10 +31,10 @@
     var renderFeaturesList = function (featuresList) {
       var fragment = document.createDocumentFragment();
       featuresList.forEach(function (item) {
-        var li = document.createElement('li');
-        li.classList.add('popup__feature');
-        li.classList.add('popup__feature--' + item);
-        fragment.appendChild(li);
+        var fragmenElement = document.createElement('li');
+        fragmenElement.classList.add('popup__feature');
+        fragmenElement.classList.add('popup__feature--' + item);
+        fragment.appendChild(fragmenElement);
       });
       return fragment;
     };
