@@ -10,7 +10,7 @@
     });
   };
 
-  var showSuccessMessage = function () {
+  var onMapOpenMessageClick = function () {
     var successElement = document.querySelector('#success').content.querySelector('.success');
     var successMessage = successElement.cloneNode(true);
     mainElement.appendChild(successMessage);
@@ -26,8 +26,8 @@
     var modalSuccesElement = document.querySelector('.success');
     if (modalSuccesElement) {
       mainElement.removeChild(modalSuccesElement);
-      document.removeEventListener('keydown', showSuccessMessage);
-      document.removeEventListener('click', showSuccessMessage);
+      document.removeEventListener('keydown', onMapOpenMessageClick);
+      document.removeEventListener('click', onMapOpenMessageClick);
       disableElements(fieldsetElements, true);
     }
   };
@@ -62,7 +62,7 @@
 
   window.message = {
     showError: showErrorMessage,
-    showSuccess: showSuccessMessage
+    showSuccess: onMapOpenMessageClick
   };
 
 })();

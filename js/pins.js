@@ -92,8 +92,8 @@
   };
 
   var resetClickedPin = function () {
-    var activePin = document.querySelectorAll('.map__pin--active');
-    activePin.forEach(function (pin) {
+    var activePinElement = document.querySelectorAll('.map__pin--active');
+    activePinElement.forEach(function (pin) {
       pin.classList.remove('map__pin--active');
     });
   };

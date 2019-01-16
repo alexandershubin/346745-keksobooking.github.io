@@ -81,10 +81,8 @@
 
   var onTypeFlatChange = function () {
     var type = formTypeElement.value;
-    var PRICE = TypeFlat[type].PRICE;
-
-    formPriceElement.placeholder = PRICE;
-    formPriceElement.min = PRICE;
+    formPriceElement.placeholder = TypeFlat[type].PRICE;
+    formPriceElement.min = TypeFlat[type].PRICE;
   };
 
   var setValidation = function () {

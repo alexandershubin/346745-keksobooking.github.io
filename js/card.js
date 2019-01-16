@@ -28,12 +28,17 @@
     offerAvatarElement.src = advert.author.avatar;
 
     offerFeaturesElement.innerHTML = '';
-    var li = document.createElement('li');
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < advert.offer.features.length; i++) {
-      li.className = 'popup__feature popup__feature--' + advert.offer.features[i];
-      fragment.appendChild(li);
-    }
+    var renderFeaturesList = function (featuresList) {
+      var fragment = document.createDocumentFragment();
+      featuresList.forEach(function (item) {
+        var fragmenElement = document.createElement('li');
+        fragmenElement.classList.add('popup__feature');
+        fragmenElement.classList.add('popup__feature--' + item);
+        fragment.appendChild(fragmenElement);
+      });
+      return fragment;
+    };
+    offerFeaturesElement.appendChild(renderFeaturesList(advert.offer.features));
 
     offerPhotosElement.innerHTML = '';
 
