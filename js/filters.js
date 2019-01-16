@@ -51,8 +51,8 @@
     }
   };
 
-  var filterData = function (dates) {
-    return dates.filter(function (item) {
+  var filterData = function (data) {
+    return data.filter(function (item) {
       return filtersElements.every(function (filter) {
         return (filter.value === ANY_VALUE) ? true : filterRules[filter.id](item, filter);
       });

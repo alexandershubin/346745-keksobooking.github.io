@@ -40,7 +40,6 @@
     };
     offerFeaturesElement.appendChild(renderFeaturesList(advert.offer.features));
 
-
     offerPhotosElement.innerHTML = '';
 
     for (var j = 0; j < advert.offer.photos.length; j++) {
